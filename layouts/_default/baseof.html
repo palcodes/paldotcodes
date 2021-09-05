@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{ partial "head.html" }}
+
+    <title>{{ if .Title }}{{ .Title }}{{ end }}</title>
+    <link rel="canonical" href="{{ .Permalink }}" />
+
+    <!-- fb -->
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:title" content="{{ if .Title  }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}" />
+    <meta property="og:description" content="{{ .Summary }}" />
+    <!-- tw -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ if .Title  }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ .Summary }}">
+
+    {{ if .Params.Image }}
+    <meta property="og:image" content="{{ .Site.BaseURL }}/img/{{ .Params.Image }}" />
+    <meta name="twitter:image" content="{{ .Site.BaseURL }}/img/{{ .Params.Image }}" />
+    {{ end }}
+</head>
+
+<body class="type-{{ .Kind }}">
+    <main aria-role="main">
+        {{ partial "header.html" }}
+
+        {{ block "main" . }}
+        {{ end }}
+
+        {{ partial "footer.html" }}
+    </main>
+</body>
+
+</html>

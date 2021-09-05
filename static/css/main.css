@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400;500;600;700&display=swap");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  word-spacing: 2px;
+  box-sizing: border-box;
+
+  --font-serif: "Domine", serif;
+  --font-mono: "IBM Plex Mono", "Menlo", "Monaco", monospace;
+
+  /* default light-mode colors */
+  --foreground-default: rgb(42, 42, 46);
+  --foreground-light: #778;
+  --background-default: #f2f2f7;
+  --background-block: #d7d9f0;
+}
+
+::selection {
+  background: #d7d9f0; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #d7d9f0; /* Gecko Browsers */
+}
+
+html {
+  /* adjust rem for page */
+  font-size: 18px;
+}
+
+body {
+  font-family: var(--font-serif);
+  color: var(--foreground-default);
+  background: var(--background-default);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+footer {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+main {
+  flex-shrink: 0;
+
+  /* paper feel */
+  width: calc(100% - 6em);
+  padding: 0 1em;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--foreground-default);
+}
+
+/* TYPOGRAPHY */
+
+h1,
+h2,
+h3 {
+  font-weight: normal;
+  line-height: 1.325em;
+  padding-bottom: 0.125rem;
+}
+
+.hero h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p,
+li {
+  line-height: 1.625em;
+  margin: 1em 0;
+}
+
+li a,
+p a {
+  text-decoration: none;
+  padding: 0 5px;
+  background: #d7d9f0;
+}
+
+.postlist li a,
+.postlist p a {
+  padding: initial;
+  background: initial;
+}
+
+.dateprefix {
+  display: inline-block;
+  min-width: 3.5rem;
+  text-align: right;
+  color: var(--foreground-light);
+}
+
+.desktop {
+  display: none !important;
+}
+
+@media only screen and (min-width: 600px) {
+  main {
+    max-width: 700px;
+    /* paper feel */
+    margin: 2em auto;
+    padding: 0 2em;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  .desktop {
+    display: initial !important;
+  }
+
+  .mobile {
+    display: none !important;
+  }
+}
+
+/* paper feel */
+@media only screen and (max-width: 760px) {
+  main {
+    margin: 0;
+    max-width: unset;
+    width: calc(100% - 2em);
+    background: initial;
+    box-shadow: none;
+  }
+}
+
+/* HEADER */
+
+header a {
+  text-decoration: none;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+header,
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+header {
+  height: 100px;
+}
+
+.home {
+  font-weight: bold;
+  margin-right: 24px;
+}
+
+nav a {
+  margin-right: 12px;
+}
+
+/* FOOTER */
+
+.prevInSection {
+  text-align: left;
+}
+
+.nextInSection {
+  text-align: right;
+}
+
+footer {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 32px;
+}
+
+/* SINGLETON */
+
+main {
+  overflow: hidden;
+}
+
+.hero {
+  padding-top: 32px;
+  margin-bottom: 36px;
+}
+
+.meta {
+  color: var(--foreground-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.meta-item {
+  width: 0;
+  flex-grow: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+p img {
+  margin: 1.5em 0;
+  width: 100%;
+}
+
+p img.blend-multiply {
+  mix-blend-mode: multiply;
+}
+
+@media only screen and (max-width: 600px) {
+  p img {
+    width: 100vw;
+    position: relative;
+    top: 0;
+    left: -16px;
+  }
+}
+
+pre,
+code {
+  color: var(--foreground-default);
+  font-family: var(--font-mono);
+}
+
+pre {
+  display: block;
+  margin: 1.5em 0;
+  background: var(--background-block);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+pre > code {
+  line-height: 1.5em;
+  flex-shrink: 0;
+  display: block;
+  padding: 1em;
+}
+
+code {
+  background: var(--background-block);
+}
+
+p code {
+  padding: 3px 5px;
+}
+
+blockquote {
+  font-style: italic;
+}
