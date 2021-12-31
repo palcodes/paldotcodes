@@ -1,3 +1,21 @@
++++
+author = "Aayush Pal"
+title = "Year in review: 2021"
+date = "2021-12-28"
+description = "Reflecting back on my year 2021"
+tags = [
+    "reading",
+    "human",
+	"newyear",
+	"learning",
+	"life"
+]
+categories = [
+    "themes",
+    "syntax",
+]
++++
+
 # Year in review: 2021
 
 It’s October, trying to put my thoughts down on bear notes. Recently purchased a MacBook Air, definitely a life changing one. It’s one of the best hardware experiences I’ve ever had in my life. The sheer comfort and relaxed mind when using this machine is much appreciated.
