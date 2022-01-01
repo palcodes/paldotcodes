@@ -16,8 +16,6 @@ categories = [
 ]
 +++
 
-# Year in review: 2021
-
 It’s October, trying to put my thoughts down on bear notes. Recently purchased a MacBook Air, definitely a life changing one. It’s one of the best hardware experiences I’ve ever had in my life. The sheer comfort and relaxed mind when using this machine is much appreciated.
 
 I remember when I first sat down to jot down my thoughts about 2021, I was left with nothing but the title. This is my first time writing an article about how I spent my year.
