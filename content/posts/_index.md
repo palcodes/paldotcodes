@@ -2,4 +2,4 @@
 title: "Posts"
 ---
 
-My writing through the ages.
+My view of the world on this corner of the internet.
