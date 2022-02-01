@@ -1,14 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 
 html,
 body {
   margin: 0;
   padding: 0;
-  word-spacing: 2px;
   box-sizing: border-box;
 
-  --font-serif: "Domine", serif;
-  --font-mono: "IBM Plex Mono", "Menlo", "Monaco", monospace;
+  --font-serif: "Inter", sans-serif;
+  --font-mono: "Menlo", "Monaco", monospace;
 
   /* default light-mode colors */
   --foreground-default: rgb(42, 42, 46);

@@ -2,9 +2,9 @@
 title: "pal.codes"
 ---
 
-# Hi, I'm Aayush
+## Greetings, I'm Aayush
 
-I'm a product engineer currently building for [myself](https://github.com/palcodes). I like wearing many hats when building products, pretty much everything from making design decisions to writing the application to taking it to production *[something I need to do more].* While doing this is of course not easy, we can achieve greatness with just a bunch of good people around.
+I'm a product engineer currently building for [myself](https://github.com/palcodes) and [Market.xyz](https://market.xyz). I like wearing many hats when building products, pretty much everything from making design decisions to writing the application to taking it to production *[something I need to do more].* While doing this is of course not easy, we can achieve greatness with just a bunch of good people around.
 
 I've built a couple of apps that I am proud of, each one defining a step in my process of learning. I want to continue doing so while working on interesting projects with amazing people.
 

@@ -16,9 +16,7 @@ categories = [
 ]
 +++
 
-## Year in Review - 2021
-
-Instead of making this very similar to how everyone does their version of the year review, I decided to record my thoughts throughout the year, whenever I felt like I had something to jot down or maybe an experience worth sharing through my writings.
+This is a collection of my learnings & experiences throughout the year 2021 and the processes I want to see myself building through 2022.
 
 Just got back from a run. I’ve been in Pune about a month now for work and this is sort of my first experience living away from the family. After having been stuck at home turning 21 in the middle of a pandemic, this felt like a great getaway. And it is. Learning so much about myself, through the habits I’ve built over the two weeks to let myself focus and form a good balance between life and work here.
 
@@ -31,8 +29,8 @@ As an engineer I never over-estimate or over-promise. I’ve learnt this lesson 
 Here at the Araku Cafe in Indiranagar, Bangalore at the time of writing this para. People all around me chatting and enjoying their cups of coffee. I love being in cafes and sometimes just being an observer. Interesting how everyone sitting there is present at the same time in the same city at the same place, even though having lived completely unique lives before that point.
 In Bangalore, I am here to meet my team members. I personally find it refreshing to join my team and work with them in person as opposed to sitting at home at my table, with nothing but Alexa to notify me abt my day. Currently, I handle the product related work. Anything from deciding what goes in and what needs to be fixed on a daily basis. What’s very new in this for me is the backend is a blockchain. Yes it’s a web3 startup and definitely wasn’t on my plan. All of it happened over a quick call with a friend and me showing interest in this ever-growing community.
 
-Apart from learning new things, meeting new people, visiting new cities, one other thing I’ve made consistent efforts for is to be fit. I was overweight a year ago. I achieved my target weight in 2021, and I plan to keep this on and keep improving on my form and agility. I run very regularly, but recently sort of added working out and HIIT exercises to the jam. Let’s see how this goes in 2022. I will write another piece about this later, because I do have come across many engineers/designers(including all sedentary jobs) facing similar fitness issues, because of the nature of our work.
+Apart from learning new things, meeting new people, visiting new cities, one other thing I’ve made consistent efforts for is to be fit. I was overweight a year ago. I achieved my target weight in 2021, and I plan to keep this on and keep improving on my form and agility. I run very regularly, but recently sort of added working out and HIIT exercises to the jam. Let’s see how this goes in 2022. I will write another piece about this later, because I do have come across many engineers/designers (including all sedentary jobs) facing similar fitness issues, because of the nature of our work.
 
 I’m still learning to make better use of my time. I’ve never really planned my days, weeks. I learnt the real value of time this year. I had never really given so much thought to my schedules, things I do in a day. But I want to, why, because I feel planning ur day sort of slows down the pace and presents the day in front of you with usually a doable enough list of tasks to get away with. You have more granular view of your day, allowing you to add slots where you can take a break every now and then, do more than just work in a day.
 
-One more thing! I want to write more. I keep saying this and keep missing out the point, but I feel like I’ve found a rhythm and a reason now to write more about what and how I am learning things, my experiences in meeting new people.  
+One more thing! I want to write more. I keep saying this and keep missing out the point, but I feel like I’ve found a rhythm and a reason now to write more about what and how I am learning things, my experiences meeting new people, traveling to new cities.
