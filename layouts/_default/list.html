@@ -11,7 +11,7 @@
 <section class="postlist">
     {{ range (.Pages.ByParam "order") }}
     <p>
-        <span class="dateprefix">{{ .Date.Format "Jan '06"}}</span>
+        <span class="dateprefix">{{ .Date.Format "02 Jan, 06"}}</span>
         <a class="summaryLink" href="{{.Permalink}}">{{ .Title }}</a>
     </p>
     {{ end }}

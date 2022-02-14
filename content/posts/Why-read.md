@@ -1,7 +1,7 @@
 +++
 author = "Aayush Pal"
 title = "Why read?"
-date = "2021-02-10"
+date = "2022-02-10"
 description = "Why people should read more?"
 tags = [
     "reading",
