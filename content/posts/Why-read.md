@@ -28,7 +28,7 @@ I don’t read as many books today. But I still do a lot of reading everyday. Mo
 * Reading builds a perspective.
 * Reading allows you to understand society’s opinions on topics of matter.
 * Reading can be a calming activity for our ever-active brains. It truly feels therapeutic to be completely drawn in on a white page with some text on it, that somehow seems to build a bridge between you and the writer.
-* With above point in context, reading makes you relate to the writer - who could be someone more experienced in a specific art, skill and that allows you to be inspired and create something of your own. (Wwich is why this article exists).
+* With above point in context, reading makes you relate to the writer - who could be someone more experienced in a specific art, skill and that allows you to be inspired and create something of your own. (Which is why this article exists).
 
 ### Conclusion
 

@@ -92,9 +92,9 @@ li {
 
 li a,
 p a {
-  text-decoration: none;
+  text-decoration: underline;
   padding: 0 5px;
-  background: #d7d9f0;
+  color: #424992;
 }
 
 .postlist li a,
