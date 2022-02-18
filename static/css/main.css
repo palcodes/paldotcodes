@@ -54,7 +54,7 @@ main {
 }
 
 a {
-  color: var(--foreground-default);
+  color: #424992;
 }
 
 /* TYPOGRAPHY */
@@ -94,7 +94,8 @@ li a,
 p a {
   text-decoration: underline;
   padding: 0 5px;
-  color: #424992;
+  background-color: #d1d3f0;
+  color: black;
 }
 
 .postlist li a,
