@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 html,
 body {
@@ -7,13 +7,13 @@ body {
   padding: 0;
   box-sizing: border-box;
 
-  --font-serif: "Inter", sans-serif;
-  --font-mono: "Menlo", "Monaco", monospace;
+  --font-serif: "Lora", serif;
+  --font-mono: "Space Mono", monospace;
 
   /* default light-mode colors */
-  --foreground-default: rgb(42, 42, 46);
+  --foreground-default: rgb(23, 23, 30);
   --foreground-light: #778;
-  --background-default: #f2f2f7;
+  --background-default: #e0e4ed;
   --background-block: #d7d9f0;
 }
 
@@ -26,7 +26,7 @@ body {
 
 html {
   /* adjust rem for page */
-  font-size: 18px;
+  font-size: 1.2rem;
 }
 
 body {
@@ -93,7 +93,7 @@ li {
 li a,
 p a {
   text-decoration: underline;
-  padding: 0 5px;
+  padding: 0 3px;
   background-color: #d1d3f0;
   color: black;
 }
@@ -276,7 +276,7 @@ code {
 }
 
 p code {
-  padding: 3px 5px;
+  padding: 1px 5px;
 }
 
 blockquote {
