@@ -3,7 +3,7 @@ title: "Readings"
 ---
 
 [[2022-08-21]]
-An non-exhaustive of readables I come across on the internet.
+A non-exhaustive list of readables I come across on the internet.
 
 - [Refactor vim into a library](https://github.com/neovim/neovim/wiki/Refactor-vim-into-a-library)
 - [The most precious resource is agency](https://simonsarris.substack.com/p/the-most-precious-resource-is-agency)
