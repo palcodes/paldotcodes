@@ -6,7 +6,7 @@ description = "Reflecting back on my year 2021"
 tags = [
     "reading",
     "human",
-	"newyear",
+	"new year",
 	"learning",
 	"life"
 ]
@@ -27,7 +27,7 @@ This was originally supposed to be a recording of my thoughts throughout the yea
 As an engineer I never over-estimate or over-promise. I’ve learnt this lesson through some very practical bad experiences in product management. This keeps me and the people working with me happy and on track. I don’t plan to change my thinking about this as this has greatly benefited me in terms of my work-life balance. I’ve very rarely had to wake up until late to finish up on some work throughout 2021.
 
 Here at the Araku Cafe in Indiranagar, Bangalore at the time of writing this para. People all around me chatting and enjoying their cups of coffee. I love being in cafes and sometimes just being an observer. Interesting how everyone sitting there is present at the same time in the same city at the same place, even though having lived completely unique lives before that point.
-In Bangalore, I am here to meet my team members. I personally find it refreshing to join my team and work with them in person as opposed to sitting at home at my table, with nothing but Alexa to notify me abt my day. Currently, I handle the product related work. Anything from deciding what goes in and what needs to be fixed on a daily basis. What’s very new in this for me is the backend is a blockchain. Yes it’s a web3 startup and definitely wasn’t on my plan. All of it happened over a quick call with a friend and me showing interest in this ever-growing community.
+In Bangalore, I am here to meet my team members. I personally find it refreshing to join my team and work with them in person as opposed to sitting at home at my table, with nothing but Alexa to notify me about my day. Currently, I handle the product related work. Anything from deciding what goes in and what needs to be fixed on a daily basis. What’s very new in this for me is the backend is a blockchain. Yes it’s a web3 startup and definitely wasn’t on my plan. All of it happened over a quick call with a friend and me showing interest in this ever-growing community.
 
 Apart from learning new things, meeting new people, visiting new cities, one other thing I’ve made consistent efforts for is to be fit. I was overweight a year ago. I achieved my target weight in 2021, and I plan to keep this on and keep improving on my form and agility. I run very regularly, but recently sort of added working out and HIIT exercises to the jam. Let’s see how this goes in 2022. I will write another piece about this later, because I do have come across many engineers/designers (including all sedentary jobs) facing similar fitness issues, because of the nature of our work.
 

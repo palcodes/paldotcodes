@@ -4,8 +4,6 @@ title = "Why read?"
 date = "2022-02-10"
 description = "Why people should read more?"
 tags = [
-    "reading",
-    "human",
 	"cultivate",
 	"opinions",
 	"understanding",
