@@ -4,7 +4,7 @@ title: "pal.codes"
 
 ## Greetings, I'm Aayush
 
-I'm a product engineer currently building for [myself](https://github.com/pal-codes) and [Market.xyz](https://market.xyz). 
+I'm a product engineer currently building for [myself](https://github.com/palcodes) and [Market.xyz](https://market.xyz). 
 I like to contribute on many levels, all the way from design to prod. 
 I am a people person, and I care more about empathetic teams than extremely crisp code.
 
