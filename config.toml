@@ -1,6 +1,0 @@
-baseURL = "https://pal.codes/"
-languageCode = "en-us"
-summaryLength = 32
-
-[markup.goldmark.renderer]
-    unsafe = true
