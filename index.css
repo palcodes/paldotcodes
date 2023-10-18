@@ -5,10 +5,14 @@ body {
   background-color: whitesmoke;
 }
 
+main h2 {
+  font-size: 20px;
+}
+
 #container {
-  width: 55%;
+  width: 700px;
   overflow: hidden;
-  margin-left: 2%;
+  margin: auto;
 }
 
 a {
@@ -17,21 +21,22 @@ a {
 }
 
 header {
-  padding-top: 60px;
+  padding-top: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
 }
 
-ul#posts {
+ul.list {
   list-style-type: none;
   padding: 0;
 }
 
-a.li-a {
+.li-a {
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
+  width: max-content;
 }
 
 li.post-blob {
@@ -42,31 +47,56 @@ p.post-title {
   font-size: 16px;
   font-weight: 400;
   line-height: 0.4;
+  margin-left: 15px;
+  width: max-content;
 }
 
 p.post-date {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: #999;
-  margin-left: 15px;
   line-height: 0.4;
+  width: 110px;
+}
+
+p.book-title {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 0.4;
+  margin-left: 15px;
+  width: max-content;
+}
+
+p.book-author {
+  font-size: 16px;
+  font-weight: 300;
+  color: #999;
+  line-height: 0.4;
+  width: max-content;
 }
 
 header #title {
   margin: 0;
   padding: 0;
   padding-right: 40px;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 300;
+  color: #525252;
 }
 
-header #nav {
+header .nav:hover {
+  color: #000000;
+}
+
+header .nav {
   padding-right: 20px;
-  font-size: 20px;
+  font-size: 18px;
+  color: #999;
+  width: max-content;
 }
 
 main {
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 main h2 {
@@ -74,7 +104,7 @@ main h2 {
 }
 
 main p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
