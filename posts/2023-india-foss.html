@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pal's blog</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <a href="../index.html" id="title">pal's blog</a>
+        <a href="../reads.html" class="nav">reads</a>
+        <a href="../uses.html" class="nav">uses</a>
+        <a href="../now.html" class="nav">now</a>
+        <a href="https://instagram.com/palcodes" class="nav">pictures</a>
+      </header>
+      <main>
+        <h2>Notes from 2023 IndiaFoss</h2>
+        <p>
+          This is most probably the only even I have attended this year and it
+          was fun as always. Met some cool people, had some interesting
+          conversations with students in college and how they are promoting
+          using Linux & BSD systems within the institution. Which I like a lot.
+          I remember my time in college, where I would introduce people around
+          me to linux and how they would all look so baffled as to what that
+          was. My college was third tier, that means there were not a lot of
+          good and interested kids around me in the classes. But I would always
+          find people like me interested in tech, met some AI people, some
+          blockchain people throughout my college. I digress,
+        </p>
+        <p>
+          This year's IndiaFoss started with the presenter talking about her
+          personal experience with the FOSS community and how it has been a
+          wonderful experience for her to lead the IndiaFoss movement just an
+          year in. All the things she got to learn and other things she helped
+          improve within the operations and tech side of things.<br />
+          Then she moved on to talk about some of the technical debt that the
+          IndiaFoss organization's tech platform had accumulated over time due
+          to improper management and not having enough resources to do a look
+          back and clear things out.
+        </p>
+
+        <p>
+          Then an engineer came on-stage to talk about exactly what the
+          organization has been upto in the last few months leading up to this
+          event. He mentioned they have been simplifying, open sourcing the code
+          for the main website and moving away from the frappe&apos;s closed
+          ecosystem for hosting that landing page, I guess. He also annouced
+
+          <b> Foss Profile</b>: This is kind of IndiaFoss&apos; version of
+          read.cv or bento.me platforms. A collection of the digital footprint
+          of a person to maybe build a job profile. Which can be a great talent
+          pool considering this community has a lot of extremely excited and
+          hardworking people.
+          <br />
+          Newsletters will be hosted on the new frappe platform. Listmonk is
+          being used other ways unmentioned. <br />
+          They are starting an <b>ecommerce store</b> for selling Merchandise by
+          Jan 2024.
+        </p>
+
+        <p>There were two tracks distributed in 2 auditoriums.</p>
+
+        <p>
+          <span style="font-weight: 600">
+            Session 1: Akash talks about Vyaakaran
+          </span>
+          <br />
+          He talks about his own programming language in 2021. Mentions compiler
+          design course in his college. Lots of free time. A language to
+          understand formal languages and automata theory. The course this was
+          in is called Theory of Computation.
+        </p>
+        <ul>
+          <li>
+            What is Formal Language and Automata theory? -> A branch of CS that
+            deals with abstract machines(Automata) that can understand a pattern
+            defined by a set of rules ( language )
+          </li>
+          <li>
+            Real world applications
+            <ul>
+              <li>Regular expressions, state machines</li>
+              <li>Compilers, parsers</li>
+            </ul>
+          </li>
+          <li>
+            No practical, visual tools for learning about automata and formal
+            language. Theory can feel limiting.
+          </li>
+          <li>
+            Why?
+            <ul>
+              <li>Small niche</li>
+              <li>Can be extended</li>
+              <li>Would be useful in learning compiler design</li>
+            </ul>
+          </li>
+          <li>
+            What is Vyaakaran? a tool to visualize formal grammar, and state
+            machines.
+          </li>
+          <li>Learn about context-free grammar.</li>
+          <li>
+            This could be a great REPL kinda tool while making a programming
+            language.
+          </li>
+          <li>
+            How ?
+            <ul>
+              <li>2022</li>
+              <li>Built with typescript</li>
+              <li>
+                But learnt a lot, and helping a lot of other students to learn
+                as well.
+              </li>
+              <li>Vue 3 for interactive editor</li>
+              <li>Svelte - for static</li>
+            </ul>
+          </li>
+          <li>The new version could run Turing machine.</li>
+          <li>
+            Things he learnt
+            <ul>
+              <li>It’s ok to reinvent the wheel.</li>
+              <li>People will stop you.</li>
+              <li>
+                When you build, you learn more about the underneath of how
+                things work.
+              </li>
+              <li>Peeling a layer of abstraction.</li>
+              <li>Take things like a challenge.</li>
+              <li>
+                Very rewarding. even if you fail, it still makes you a better
+                engineer.
+              </li>
+              <li>
+                A FOSS project is not just a collection of files. It’s an
+                emotion of the developers.
+              </li>
+              <li>Vyaakaran is a manifestation that came out of learning.</li>
+            </ul>
+          </li>
+          <li>
+            DSLs are fun
+            <ul>
+              <li>Domain specific languages</li>
+              <li>Used by both programmers &amp; non-programmers.</li>
+              <li>Can be more powerful and easier than complex UI.</li>
+            </ul>
+          </li>
+          <li>
+            Vyaakaran has it’s own DSL
+            <ul>
+              <li>
+                Lexico ( search library with operators ) he made Vyaakaran open
+                source on stage. Very well stage presence and work
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          <span style="font-weight: 600">
+            Session 2: Arpit Tripathi talks about Private 5G Deployments using
+            Opensource 5g core networks</span
+          >
+          <br />
+          <ul>
+<li>He was a part of the first 5g usecase lab to be awarded.</li>
+<li>Yesterday Modi awarded 100 more labs.</li>
+<li>What was the motivation? <ul>
+<li>General usage: WiFi</li>
+<li>Handover between two devices is better in 5g</li>
+</ul>
+</li>
+<li>Security: WPA <ul>
+<li>Uses AKA protocol </li>
+</ul>
+</li>
+<li>Deployment: types<ul>
+<li>Not every entity enterprise don’t have the resources to invest. </li>
+<li>Therefore there are certain deployment models like 3gpp. </li>
+<li>1st: exclusively inside the premises. </li>
+<li>2nd: cloud native core functions over cloud</li>
+<li>3rd: the RAN is shared. Look out for RAN? </li>
+<li>4th: enterprise slice model: mentioned 5g network slicing. </li>
+</ul>
+</li>
+<li>Industry 4.0 goals.<ul>
+<li>Time sensitive delivery</li>
+<li>Data analytics. </li>
+<li>Device to device connection</li>
+</ul>
+</li>
+<li>Open source core networks: popular<ul>
+<li>Open air, open5gcore, free5gc, magma, score, open5gs. </li>
+<li>These are network setup that we can deploy on our own. </li>
+<li>Using this is cheaper. </li>
+<li>Just invest in the hardwrare. </li>
+</ul>
+</li>
+<li>Use cases that Arpit has been working with: <ul>
+<li>5G Test bed</li>
+<li>Financial literacy: they took an ATM van to rural areas to learn about banking transactions, atm usage. </li>
+<li>Securing the edge for banking. </li>
+<li>Untrusted access via N3IWF</li>
+</ul>
+</li>
+</ul>
+
+        </p>
+
+        <p>
+          <span style="font-weight: 600">
+            Session 3: Ark Arjun talks about Mappng Mobility: Unveiling Kochi’s
+            Transport Landscape through OpenStreetMap
+          </span>
+          <br />
+          <ul>
+			<li>This is happening in Kochi right now. </li>
+			<li>Commercial project completely done by community</li>
+			<li>What is mobility mapping? <ul>
+			<li>Visual representation of the movement of people, in and out of community. </li>
+			<li>What does it tell? Economic, social, cultural, political, infrastructural status of an area. </li>
+			<li>Why is it important? For now it’s only about public transport - commuters, monitoring of the effectiveness of the existing system.</li>
+			<li>The big problem right now is the availability of data. </li>
+			<li>Other problems - standardization, monitoring, multiple operators, no real time updates. </li>
+			</ul>
+			</li>
+			<li>Open Standards? <ul>
+			<li>A specific ontology, schema, or format used by the mobility industry in order to facilitate the consistent communication of information between devices. </li>
+			<li>Should be free of cost. </li>
+			<li>Not to be developed by entities with financial interest.</li>
+			<li>Contains structures releases, versions, changelings. </li>
+			</ul>
+			</li>
+			<li>One of the standards is GTFS allows the public transit to publish their data such that understanding of the data, and proper handling is possible. </li>
+			<li>The data is mapped from the devices installed in the vehicles. </li>
+			<li>Mumbai and Pune has open data available. Bangalore is limited and not marked. </li>
+			<li>Openstreetmap was founded in 2004, by Steve ? .</li>
+			<li>Everyone should be able to use, edit the map information. </li>
+			<li>What the team did? <ul>
+			<li>Existing data collection ( no gov data was available to start with. </li>
+			<li>Field work -  GPS trace collection </li>
+			<li>Create relations in OSM for master routes </li>
+			<li>Mapping all of these traces to the OSM</li>
+			<li>Validation</li>
+			</ul>
+			</li>
+			</ul>
+			
+        </p>
+
+        <p>
+          <span style="font-weight: 600">
+            Session 4: - Women empowerment Panel
+          </span>
+          <br />
+          <ul>
+			<li>It’s a panel with 4 very inspiring women at some very high positions in the industry. </li>
+			<li>Was very good to hear them talk about their experiences. </li>
+			<li>Making a conscious choice in your life is very integral. </li>
+			<li>Women face very different issues, difficulties in their career and professional journeys. </li>
+			<li>Talked about financial problems. </li>
+			<li>Why exposure is very important. </li>
+			<li>Professional experiences can help in personal life.</li>
+			<li>The 4th person said something very important - a team player mentality is very important in a relationship.</li>
+			<li>What really matters, is the way you interact with the people around you everyday. The small moments, the small rules, small mannerisms make a big difference. </li>
+			</ul>
+			
+        </p>
+        <p>
+          <span style="font-weight: 600">
+            Session 5: Atharva Upadhye talks about Creating Hardware through
+            open source ecosystem
+          </span>
+          <br />
+          <ul>
+			<li>What they do? - 
+				<ul>
+			<li>Connected devices group</li>
+			<li>Make custom electronic products.</li>
+			</ul>
+			</li>
+			<li>Hardware building blocks: <ul>
+			<li>Drawing circuits</li>
+			<li>PCB layout</li>
+			<li>PCB manufacturing + assembly</li>
+			<li>Mechanical Box design</li>
+			</ul>
+			</li>
+			<li>OrCAD and Altium to draw circuits. </li>
+			<li>PCB layout from drawing to a real physical form: which will be a breadboard first and a printed circuit board as a consumer product.</li>
+			<li>Manufacturing + Assembly</li>
+			<li>Mechanical box design is the enclosure of the structure. Solidworks / CATIA</li>
+			<li>Why the speaker’s compony or corporates use proprietary software? <ul>
+			<li>One mistake: can be costly. Bcoz hardware doesn’t work like software, you can’t easily go back and edit and patch fix the code. </li>
+			<li>Time to market is slow. </li>
+			<li>Proprietary software offer comprehensive design flow. - (KITTYCAD)</li>
+			<li>Availability of talent to work across different tools, making open source tools less attractive proposition. </li>
+			</ul>
+			</li>
+			<li>KiCad - opensource EDA tool ( electronic design automation )<ul>
+			<li>Advantages: Full design flow tools available under on hat ( from circuit design to PCB layout. ) </li>
+			<li>95% of electronics engineers can’t do both circuits drawing and PCB layouts. </li>
+			<li>Community support </li>
+			<li>No proprietary software does this: 3D visualization supported by FOSS kicad. </li>
+			</ul>
+			</li>
+			<li>A lot of the hardware engineers copy/adopt from each other. Which is a good practice to cater confidence. </li>
+			<li>Which actually turns out to be a good thing for open source. </li>
+			<li>They are called SmartTerminal </li>
+			<li>He showed a capability of their product running blender, games on total 8 screens doing different things. </li>
+			</ul>
+			
+        </p>
+      </main>
+    </div>
+  </body>
+</html>
