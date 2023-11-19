@@ -10,9 +10,16 @@ main h2 {
 }
 
 #container {
-  width: 700px;
+  max-width: 600px;
   overflow: hidden;
-  margin: auto;
+  margin-left: 2%;
+}
+
+@media only screen and (max-width: 600px) {
+  #container {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
 }
 
 a {
