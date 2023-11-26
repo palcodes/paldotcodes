@@ -5,6 +5,14 @@ body {
   background-color: whitesmoke;
 }
 
+code {
+  background-color: rgb(229, 229, 229);
+  padding: 2px;
+  line-height: 6px;
+  font-family: monospace;
+  border-radius: 4px;
+}
+
 main h2 {
   font-size: 20px;
 }
@@ -37,6 +45,10 @@ header {
 ul.list {
   list-style-type: none;
   padding: 0;
+}
+
+ul.notes {
+  margin-left: 2px;
 }
 
 .li-a {
