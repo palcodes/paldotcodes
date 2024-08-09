@@ -1,8 +1,8 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
-  background-color: whitesmoke;
+  background-color: rgb(236, 236, 236);
 }
 
 code {
@@ -14,7 +14,10 @@ code {
 }
 
 main h2 {
-  font-size: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 64px;
+  margin-bottom: 24px;
 }
 
 #container {
@@ -55,43 +58,46 @@ ul.notes {
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
-  width: max-content;
 }
 
 li.post-blob {
   line-height: 0.5;
+  text-wrap: balance;
 }
 
 p.post-title {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 0.4;
+  font-size: 15px;
+  font-weight: 300;
   margin-left: 15px;
-  width: max-content;
+  width: 100%;
+  line-height: 22px;
 }
 
 p.post-date {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 300;
-  color: #999;
+  color: #4d4d4d;
   line-height: 0.4;
-  width: 110px;
-}
-
-p.book-title {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 0.4;
-  margin-left: 15px;
-  width: max-content;
+  width: 140px;
+  line-height: 22px;
 }
 
 p.book-author {
-  font-size: 16px;
-  font-weight: 300;
-  color: #999;
-  line-height: 0.4;
-  width: max-content;
+  font-size: 15px;
+  line-height: 22.4px;
+  width: 150px;
+}
+
+p.book-title {
+  font-size: 15px;
+  color: #626262;
+  line-height: 22.4px;
+  margin-left: 15px;
+  width: 100%;
+}
+
+header {
+  flex-wrap: wrap;
 }
 
 header #title {
@@ -101,6 +107,7 @@ header #title {
   font-size: 28px;
   font-weight: 300;
   color: #525252;
+  margin-bottom: 12px;
 }
 
 header .nav:hover {
@@ -109,9 +116,10 @@ header .nav:hover {
 
 header .nav {
   padding-right: 20px;
-  font-size: 18px;
-  color: #999;
+  font-size: 14px;
+  color: #626262;
   width: max-content;
+  text-transform: uppercase;
 }
 
 main {
@@ -125,6 +133,7 @@ main h2 {
 main p {
   font-size: 16px;
   line-height: 1.5;
+  font-weight: 300;
 }
 
 footer {
