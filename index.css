@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 body {
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   background-color: rgb(236, 236, 236);
@@ -17,7 +19,7 @@ main h2 {
   font-size: 12px;
   text-transform: uppercase;
   margin-top: 64px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 #container {
@@ -133,7 +135,6 @@ main h2 {
 main p {
   font-size: 16px;
   line-height: 1.5;
-  font-weight: 300;
 }
 
 footer {
