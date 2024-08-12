@@ -67,16 +67,16 @@ li.post-blob {
 
 p.post-title {
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   margin-left: 15px;
   width: 100%;
   line-height: 22px;
 }
 
 p.post-date {
-  font-size: 15px;
-  font-weight: 300;
-  color: #4d4d4d;
+  font-size: 13px;
+  font-weight: 700;
+  color: #898989;
   line-height: 0.4;
   width: 140px;
   line-height: 22px;
