@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pal's blog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <div>
+          <a href="../index.html" id="title">aayush pal</a>
+        </div>
+
+        <div style="display: flex; justify-content: space-evenly">
+          <a class="nav-items" href="../reads.html" class="nav">/reads</a>
+          <a class="nav-items" href="../uses.html" class="nav">/uses</a>
+          <a class="nav-items" href="../now.html" class="nav">/now</a>
+          <a class="nav-items" href="https://instagram.com/palcodes" class="nav"
+            >/pictures</a
+          >
+          <a href="../bookmarks.html" class="nav">/bookmarks</a>
+        </div>
+      </header>
+      <main class="main-body">
+        <div class="main-left">
+          <h2 class="main-title">Notes about the C language</h2>
+        <a style="text-decoration: underline;" href="https://beej.us/guide/bgc/">From the Beej's guide</a>
+        <p></p>
+          <p class="main-date">26-10-2023</p>
+        </div>
+
+        <div class="main-right">
+        <h3 id="about">About</h3>
+        <ul class="notes">
+          <li>
+            Originally created to construct programs for the Unix operating
+            system, and a flavor of C called ANSI C was also used in Plan9.
+          </li>
+          <li>Also was then used to rewrite the Unix kernel.</li>
+          <li>
+            Compilers for C come built in with most operating system, eg: gcc,
+            clang.
+          </li>
+        </ul>
+
+        <h3 id="language">Language</h3>
+        <ul class="notes">
+          <li>
+            Anything between the digraphs <code>/*</code> and <code>*/</code> is
+            a comment. Also <code>//</code>
+          </li>
+          <li>
+            <code>#include</code> tells the C Preprocessor to include a
+            specified file.
+          </li>
+          <li>
+            Two stages in compilation of C code
+             
+				<ul class="notes">
+				<li> Preprocessor: Anything that starts <span class="hljs-keyword">with</span> the pound sign `#` or <span class="hljs-string">"octothorpe"</span> is handled by the Preprocessor ( Common _preprocessor directives_ )</li>
+			<li style="margin-left: 24px"> Preprocessor -&gt; processes `<span class="hljs-keyword">code</span> starting <span class="hljs-keyword">with</span> #` -&gt; output -&gt; Compiler -&gt; compiles -&gt; `assembly <span class="hljs-keyword">code</span>` </li>
+		  <li> Compiler: Rest all will be handled by the compiler. </li>
+		</ul>
+		</code></pre>
+          </li>
+          <li>
+            Basic point but the <code>stdio.h</code> header file allows to
+            perform bunch of I/O functionality.
+          </li>
+          <li>
+            The main function is called automatically when the program starts
+            executing.
+            <ul class="notes">
+              <li>Nothing else will be executed before main()</li>
+            </ul>
+          </li>
+          <li>
+            <blockquote>
+              <p>
+                Languages that typically aren’t compiled are called
+                <em>interpreted</em> languages. But as we mentioned with Java
+                and Python, they also have a compilation step. And there’s no
+                rule saying that C can’t be interpreted. (There are C
+                interpreters out there!) In short, it’s a bunch of gray areas.
+                Compilation in general is just taking source code and turning it
+                into another, more easily-executed form.
+              </p>
+            </blockquote>
+          </li>
+        </ul>
+        <h4 id="variable">Variable</h4>
+        <ul class="notes">
+          <li>
+            A variable is a name for some data that&#39;s stored in memory at
+            some address.
+          </li>
+          <li>
+            Looking at variables this way helps to understand pointers better.
+            (later)
+          </li>
+          <li>
+            Variable type needs to be defined when declaring, and that type will
+            stay unchanged until it falls out of scope.
+          </li>
+          <li>
+            Always explicitly initialize variables to some values before you use
+            them.
+          </li>
+          <li>
+            printf()
+            <ul class="notes">
+              <li><code>%d -&gt; integer</code></li>
+              <li><code>%s -&gt; string</code></li>
+              <li><code>%f -&gt; float</code></li>
+              <li><code>%zu -&gt; size_t</code></li>
+              <li><code>%p -&gt; pointer</code></li>
+            </ul>
+          </li>
+          <li>
+            C originally did not have boolean
+            <ul class="notes">
+              <li>
+                In C, <code>0</code> means <code>false</code>, and any other
+                number for eg. <code>1</code> or <code>-44</code> means
+                <code>true</code>
+              </li>
+              <li>
+                If you <code>#include&lt;stdbool.h&gt;</code>, you can also use
+                the <code>bool</code> keyword.
+              </li>
+            </ul>
+          </li>
+          <li>
+            C has ternary operator
+            <ul class="notes">
+              <li>
+                <code>y += x &gt; 10 ? 17 : 37</code>: means
+                <pre><code>if (x &gt; <span class="hljs-number">10</span>)
+		y += <span class="hljs-number">17</span>;
+		else
+		y += <span class="hljs-number">37</span>;
+		</code></pre>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <code>i++ &amp; i--</code> the value of the expression is first
+            computed with the value as-is.
+          </li>
+          <li>
+            <code>++i &amp; --i</code> this happens before the expression is
+            evaluated.
+          </li>
+          <li>
+            <code>sizeof</code> operator is used to get the size ( in bytes ) of
+            a particular expression.
+            <ul class="notes">
+              <li>
+                C has a special data type to represent the return value of
+                <code>sizeof</code>. It&#39;s <code>size_t</code>.
+              </li>
+              <li>All we know is that it&#39;s an unsigned integer type.</li>
+              <li>
+                <code>%zu</code> is the format specifier for type
+                <code>size_t</code>
+              </li>
+              <li>Also this is a compiler-time operation.</li>
+            </ul>
+          </li>
+          <li>
+            <code>switch</code> only works with equality comparisons with
+            constant numbers.
+            <ul class="notes">
+              <li>
+                evaluates an expression to an integer value, jumps to the case
+                that corresponds to that value. Execution continues from the
+                point.
+              </li>
+              <li>
+                If a <code>break</code> statement is encountered, then execution
+                jumps out of the <code>switch</code>.
+                <ul class="notes">
+                  <li>
+                    If no <code>break</code> is applied, it will fall through.
+                    It will execute all the cases without a <code>break</code>.
+                  </li>
+                </ul>
+              </li>
+              <li>is <code>switch</code> faster; maybe, maybe not?!!</li>
+              <li>
+                but <code>switch</code> cannot do things like
+                <code>&gt;</code> or <code>&lt;=</code> and floating point and
+                other types.
+              </li>
+            </ul>
+          </li>
+          <li>
+            A not-uncommon use of <code>while</code> loops is for infinite loop
+            where you repeat while true.
+            <pre><code><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) {
+		<span class="hljs-built_in">printf</span>(<span class="hljs-string">"1 is always true, so this repeats forever\n"</span>);
+		}
+		</code></pre>
+          </li>
+          <li>
+            All three parts of a <code>for</code> loop are optional.
+            <ul class="notes">
+              <li>An empty for loop <code>for(;;)</code> will run forever.</li>
+            </ul>
+          </li>
+        </ul>
+        <h4 id="functions">Functions</h4>
+        <ul class="notes">
+          <li>Arguments and return value types have to be predeclared.</li>
+          <li>
+            A parameter is a special type of local variable into which the
+            arguments are copied.
+            <ul class="notes">
+              <li>
+                Thus, a parameter is a <em>copy</em> of the argument, not the
+                argument itself.
+              </li>
+            </ul>
+          </li>
+          <li>Functions will be defined before being called.</li>
+          <li>
+            Function parameters
+            <ul class="notes">
+              <li>
+                Passing by value -&gt; basically means we copy the value of the
+                argument into the parameter of the function.
+                <ul class="notes">
+                  <li>
+                    Unless returned, no value in the parent for eg.
+                    <code>main</code> changes.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Function prototypes</strong>: looks something like
+            <code>int foo(void);</code> where we have created a prototype before
+            defining the function and it&#39;s okay to call it before
+            definition.
+          </li>
+          <li>
+            Use <code>void</code> keyword as parameter instead of an empty
+            parameter for function definition.
+          </li>
+        </ul>
+        <h4 id="pointers">Pointers</h4>
+        <ul class="notes">
+          <li>
+            When you have a data type (like your typical <code>int</code>) that
+            uses more than a byte of memory, the bytes that make up the data are
+            always adjacent to one another in memory. Sometimes they’re in the
+            order that you expect, and sometimes they’re not<a
+              href="https://beej.us/guide/bgc/html/split/footnotes.html#fn46"
+              >46</a
+            >. While C doesn’t guarantee any particular memory order (it’s
+            platform-dependent), it’s still generally possible to write code in
+            a way that’s platform-independent where you don’t have to even
+            consider these pesky byte orderings.
+          </li>
+          <li>A pointer holds the address of a data.</li>
+          <li>It tells us where in memory a data point is stored.</li>
+          <li>
+            A dereference operator is used to get the original data indirectly
+            from the pointer variable.
+          </li>
+          <li>
+            <code>&amp;i</code> ampersand will get the address of the variable
+            <code>i</code>, it cannot be on the left side of a statement.
+          </li>
+          <li>
+            The main use of pointers is when you might want to return more than
+            a single value from the execution of a function. ( while we know
+            functions don&#39;t allow multiple returns like in Go. )
+            <ul class="notes">
+              <li>
+                Pointers will allow you to point that to that address, data and
+                be able to mutate it.
+              </li>
+            </ul>
+          </li>
+          <li>
+            A question: do we always use pointers in case of complex functions?
+            ( mutating multiple values for eg. )
+          </li>
+          <li>
+            When using pointers, <code>j</code> for eg. is
+            <code>the address</code> while <code>*j</code> will give the
+            <code>value</code> at that address.
+          </li>
+          <li>
+            Any pointer variable of any pointer type can be set to a special
+            value called <code>NULL</code>. This indicates that this pointer
+            doesn’t point to anything.
+            <pre><code>int *p<span class="hljs-comment">;</span>
+		<span class="hljs-attribute">p</span> = NULL<span class="hljs-comment">;</span>
+		</code></pre>
+          </li>
+          <li>
+            Despite being called
+            <a href="https://en.wikipedia.org/wiki/Null_pointer#History"
+              >the billion dollar mistake by its creator</a
+            ><a href="https://beej.us/guide/bgc/html/split/footnotes.html#fn49"
+              >49</a
+            >, the <code>NULL</code> pointer is a good
+            <a href="https://en.wikipedia.org/wiki/Sentinel_value"
+              >sentinel value</a
+            ><a href="https://beej.us/guide/bgc/html/split/footnotes.html#fn50"
+              >50</a
+            >
+            and general indicator that a pointer hasn’t yet been initialized.
+          </li>
+          <li>
+            (Of course, like other variables, the pointer points to garbage
+            unless you explicitly assign it to point to an address or
+            <code>NULL</code>.)
+          </li>
+        </ul>
+        <h4 id="array">Array</h4>
+        <ul class="notes">
+          <li>
+            Array length can be read inside a function with the array passed as
+            a argument.
+          </li>
+          <li>
+            <code>sizeof(int)</code> is basically calling the sizeof fn to check
+            on the size of the int array without creating an array.
+          </li>
+          <li>
+            When initializing an array when you don&#39;t need to fill the array
+            to the size. But you can&#39;t definitely add more.
+          </li>
+        </ul>
+        <p>Strings</p>
+        <ul class="notes">
+          <li>
+            <code>char *s = &quot;Hello, world!&quot;;</code> is a pointer
+            initialization to the first character in the string, but is
+            immutable. <code>s[0] = &#39;z&#39;;</code> is not allowed.
+          </li>
+          <li>
+            Quite the opposite when you
+            <code>char s[] = &quot;Hello, world!&quot;;</code>.
+          </li>
+          <li>
+            C follows a different route with implementing strings in the
+            language, wherein it stores the bytes of a string, and mark the end
+            of a string with a special bye called the terminator.
+            <ul class="notes">
+              <li>A pointer to the first character in the string</li>
+              <li>
+                A zero-valued byte ( or NUL character ) somewhere in memory
+                after the pointer that indicates the end of the string.
+              </li>
+              <li>A NUL character can be written in C as <code>\0</code>.</li>
+            </ul>
+          </li>
+        </ul>
+        <h4 id="structs">Structs</h4>
+        <ul class="notes">
+          <li>
+            Structs is a convenient to handle data. Multiple parameters can be
+            replaced with a single type.
+          </li>
+          <li>
+            It basically allows a User to create types, to define data models.
+          </li>
+          <li>
+            <code>struct car { ... }</code> is how you define a struct type.
+          </li>
+          <li>
+            <code>struct car honda</code> is how you define a variable of struct
+            type car.
+          </li>
+          <li>
+            <code>struct car honda = {&quot;honda city&quot;, 123, 44</code>}
+            you could initialize it this way but imagine if the struct series of
+            the data is changed, that would break the whole code.
+          </li>
+          <li>
+            Instead you could add
+            <code
+              >struct car honda = {.name=&quot;honda city&quot;, .speed=123,
+              .price=44</code
+            >}`
+          </li>
+          <li>
+            There are basically two cases when you’d want to pass a pointer to
+            the <code>struct</code> as the argument to a function:
+            <ol>
+              <li>
+                You need the function to be able to make changes to the
+                <code>struct</code> that was passed in, and have those changes
+                show in the caller.
+              </li>
+              <li>
+                The <code>struct</code> is somewhat large and it’s more
+                expensive to copy that onto the stack than it is to just copy a
+                pointer<a
+                  href="https://beej.us/guide/bgc/html/split/footnotes.html#fn69"
+                  >69</a
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            We just need to write the body. One attempt might be:
+            <pre><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_price</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> car *c, <span class="hljs-keyword">float</span> new_price)</span> </span>{
+		  c.price = new_price;  <span class="hljs-comment">// ERROR!!</span>
+		}
+		</code></pre>
+          </li>
+          <li>
+            That won’t work because the dot operator only works on
+            <code>struct</code>s… it doesn’t work on <em>pointers</em> to
+            <code>struct</code>s.
+          </li>
+          <li>
+            Ok, so we can dereference the <code>struct</code> to de-pointer it
+            to get to the <code>struct</code> itself. Dereferencing a
+            <code>struct car*</code> results in the <code>struct car</code> that
+            the pointer points to, which we should be able to use the dot
+            operator on:
+          </li>
+        </ul>
+        <pre><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_price</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> car *c, <span class="hljs-keyword">float</span> new_price)</span> </span>{
+			(*c).price = new_price;  <span class="hljs-comment">// Works, but is ugly and non-idiomatic :(</span>
+		}
+		</code></pre>
+        <ul class="notes">
+          <li>
+            So this is where the arrow operator comes in. The Arrow operator
+            helps refer to fields in pointers to <code>structs</code>.
+            <pre><code><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">set_price</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> car *c, <span class="hljs-keyword">float</span> new_price)</span> </span>{ 
+		  c-&gt;price = new_price; <span class="hljs-comment">// This looks so much better!</span>
+		}
+		</code></pre>
+          </li>
+        </ul>
+        <h4 id="file-i-o">File I/O</h4>
+        <ul class="notes">
+          <li>
+            Before diving into anything else,
+            <ul class="notes">
+              <li>
+                <code>stdin</code>: Standard Input, generally the keyboard by
+                default.
+              </li>
+              <li>
+                <code>stdout</code>: Standard Output, generally the screen by
+                default.
+              </li>
+              <li>
+                <code>stderr</code>: Standard Error, generally the screen by
+                default, as well.
+              </li>
+			  <li>These are the core I/O streams assigned to all programs or processes running on a Unix system.</li>
+            </ul>
+          </li>
+		  
+          <li>
+            Reading Text files:
+            <ul class="notes">
+              <li>
+                Streams are generally categorized in two different ways:
+                <em>text</em> and <em>binary</em>.
+              </li>
+              <li>
+                There is a special character defined as a macro:
+                <code>EOF</code>. This is what <code>fgetc()</code> will return
+                when the end of the file has been reached and you’ve attempted
+                to read another character
+              </li>
+              <li><code>fgetc</code> - to read a character a time</li>
+              <li><code>fgets</code> - to read lines</li>
+            </ul>
+          </li>
+          <li>
+            Writing Files
+            <ul class="notes">
+              <li>
+                <code>fputc, fputs, fprintf</code> are basically the one-to-one
+                similar to the readers.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Binary
+            <ul class="notes">
+              <li><code>fwrite and fread</code></li>
+              <li>
+                Caveat: It&#39;s not ideal to just <code>fwrite()</code> an
+                entire struct out to a file when you don&#39;t know where the
+                padding will end up.
+              </li>
+              <li>
+                <h4
+                  id="will-need-to-come-back-to-reading-about-the-endianness-of-an-architecture-"
+                >
+                  Will need to come back to reading about the [[Endianness]] of
+                  an architecture.
+                </h4>
+              </li>
+              <li>
+                So the problem is resolved using Protocol Buffers created by
+                Google.
+                <ul class="notes">
+                  <li>
+                    I have come across protocol buffers before this but never
+                    knew the purpose.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p><code>typedef</code></p>
+        <ul class="notes">
+          <li>
+            Take an existing type and make an alias for it with
+            <code>typedef</code>.
+          </li>
+          <li>
+            <code>typedef int apple</code> =&gt; <code>apple x = 10</code> .
+            Where we are defining a variable x of type
+            <code>&quot;apple&quot;</code> which is in turn the same as type
+            `&quot;int&quot;.
+          </li>
+          <li>
+            Application:
+            <ul class="notes">
+              <li>
+                Scoping
+                <ul class="notes">
+                  <li>typedef follows regular scoping rules.</li>
+                  <li>
+                    For this reason, it&#39;s quite common to find typedef at
+                    global scope in a file so that all functions can use the new
+                    type at will.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <code>typedef</code>ing a struct.
+                <ul class="notes">
+                  <li>
+                    <code>typedef struct animal animal;</code> =&gt; allows
+                    <code>animal z;</code>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h4 id="-void-pointer"><code>void</code> Pointer</d>
+        <ul class="notes">
+          <li>
+            Sometimes it’s useful to have a pointer to a thing
+            <em>that you don’t know the type of</em>.
+          </li>
+          <li>
+            There are basically two use cases for this.
+            <ol>
+              <li>
+                A function is going to operate on something byte-by-byte. For
+                example, <code>memcpy()</code> copies bytes of memory from one
+                pointer to another, but those pointers can point to any type.
+                <code>memcpy()</code> takes advantage of the fact that if you
+                iterate through <code>char*</code>s, you’re iterating through
+                the bytes of an object no matter what type the object is. More
+                on this in the
+                <a
+                  href="https://beej.us/guide/bgc/html/split/pointers-iii-pointers-to-pointers-and-more.html#multibyte-values"
+                  >Multibyte Values</a
+                >
+                subsection.
+              </li>
+              <li>
+                Another function is calling a function you passed to it (a
+                callback), and it’s passing you data. You know the type of the
+                data, but the function calling you doesn’t. So it passes you
+                <code>void*</code>s—’cause it doesn’t know the type—and you
+                convert those to the type you need. The built-in
+                <a
+                  href="https://beej.us/guide/bgclr/html/split/stdlib.html#man-qsort"
+                  ><code>qsort()</code></a
+                ><a
+                  href="https://beej.us/guide/bgc/html/split/footnotes.html#fn84"
+                  >84</a
+                >
+                and
+                <a
+                  href="https://beej.us/guide/bgclr/html/split/stdlib.html#man-bsearch"
+                  ><code>bsearch()</code></a
+                ><a
+                  href="https://beej.us/guide/bgc/html/split/footnotes.html#fn85"
+                  >85</a
+                >
+                use this technique.
+              </li>
+            </ol>
+          </li>
+          <li>
+            You can just using <code>number_of_elements</code> *
+            <code>sizeof(type)</code> to define how many elements of what size
+            to be moved, let&#39;s say if you are using <code>memcpy()</code>.
+          </li>
+          <li>
+            If we didn&#39;t have <code>void</code> pointer, we would have had
+            to use function definitions for each of the data type
+            <code>memcpy()</code> functions.
+            <ol>
+              <li>You cannot do pointer arithmetic on a <code>void*</code>.</li>
+              <li>You cannot dereference a <code>void*</code>.</li>
+              <li>
+                You cannot use the arrow operator on a <code>void*</code>, since
+                it’s also a dereference. 4. You cannot use array notation on a
+                <code>void*</code>, since it’s also a dereference, as well<a
+                  href="https://beej.us/guide/bgc/html/split/footnotes.html#fn86"
+                  >86</a
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>
+              Important piece of example code ```c void
+              <em>my_memcpy(void </em>dest, void
+              <em>src, int byte_count) { // Convert void</em>s to char<em
+                >s char </em
+              >s = src, *d = dest;
+            </p>
+            <p>
+              // Now that we have char*s, we can dereference and copy them while
+              (byte_count--) {
+            </p>
+            <pre><code>  <span class="hljs-comment">*d</span><span class="hljs-literal">+</span><span class="hljs-literal">+</span> <span class="hljs-comment">=</span> <span class="hljs-comment">*s</span><span class="hljs-literal">+</span><span class="hljs-literal">+</span><span class="hljs-comment">;</span>
+		</code></pre>
+            <p>}</p>
+            <p>
+              // Most of these functions return the destination, just in case //
+              that&#39;s useful to the caller. return dest; }
+            </p>
+          </li>
+        </ul>
+	
+        <ul class="notes">
+          <li>possible char unsigned size</li>
+        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th><code>char</code> type</th>
+              <th>Minimum</th>
+              <th>Maximum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>signed char</code></td>
+              <td><code>-128</code></td>
+              <td><code>127</code></td>
+            </tr>
+            <tr>
+              <td><code>unsigned char</code></td>
+              <td><code>0</code></td>
+              <td><code>255</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </main>
+    </div>
+  </div>
+  </body>
+</html>

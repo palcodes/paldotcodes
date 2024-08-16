@@ -1,1 +1,3 @@
-public/
+.lsp
+.clj-kondo
+.DS_Store
