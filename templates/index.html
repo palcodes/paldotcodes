@@ -34,29 +34,165 @@
       </div>
 
       <div class="land-right">
-        <img class="grids" src="/img/grids.svg" alt=""/>
-        <p>
-          Hello dear netizen! You seem to have stumbled upon my html.<br/>
-          This collection of english words I am putting together aims to make
-          good use of your time here. I will be writing about tech, my
-          opinions about the world, prose or stanzas, experiences, short
-          notes, ideas - all here. <br/>I graduated in 2022, but I have been
-          working more or less since I was 17 or maybe 16 if you count a
-          completely unpaid C# project. <br/>Currently I am researching,
-          building products that make mindful use of LLMs or AI. I have been
-          cognizant to the notion that AI in its current state is nothing but
-          thousands of different UIs centered around a textbox. I believe a
-          good product should challenge that norm. <br/>Areas of product that
-          intrigue me in general are 'tools for thought' and 'knowledge/text
-          segmentation'. I have been day-dreaming a software paradigm that
-          lets humans interact with their knowledge in physical form.
-        </p>
-        <div class="recent">
-          <p class="recent-head">recent words</p>
-          {{recent}}
+        <div class="wf">
+          <canvas id="wf-canvas" height="140"></canvas>
+          <p class="wf-status" id="wf-status">&mdash;</p>
         </div>
+        <p>
+          Hello Earth citizen! This page has travelled through physical
+          optical cables, literally bouncing light all the way to the
+          nearest server farm then to reach you, its quite fascinating isn't
+          it! That you can just open your browser, type in my domain and get
+          this page.<br/><br/>
+          I currently work as an embedded engineer at an EV startup, writing
+          firmware close to the metal, directly interacting with memory
+          mapped registers and getting the hardware to do what it's supposed
+          to. I also write C++, C# and Rust. I am a 2022 graduate, started
+          working on projects for clients since 2017 and I have picked up
+          quite a few lessons along the way.<br/><br/>
+          Seize the day.<br/>
+          Gather ye rosebuds while ye may.<br/>
+          &mdash; Robert Herrick's verse ( Dead Poet's Society )
+        </p>
       </div>
     </div>
   </div>
+  <script>
+    // Carrier-signal animation: a handshake sequence of square pulses,
+    // settling into a continuous sine wave. The only script on the site —
+    // hand-written, no dependencies, ~70 lines. Reads its stroke color from
+    // the page's own --ink token so it always matches the palette.
+    (function () {
+      const c = document.getElementById('wf-canvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const statusEl = document.getElementById('wf-status');
+      const ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#1b2023';
+
+      function resize() {
+        c.width = c.offsetWidth * devicePixelRatio;
+        c.height = 140 * devicePixelRatio;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(devicePixelRatio, devicePixelRatio);
+      }
+
+      const W = () => c.offsetWidth;
+      const H = 140;
+      const MID  = H * 0.5;
+      const BASE = H * 0.65;
+      const TOP  = H * 0.2;
+
+      const STAGES = [
+        { label: 'DNS lookup → resolving pal.codes',       pulseH: TOP },
+        { label: 'TCP handshake → SYN / SYN-ACK / ACK',    pulseH: H * 0.28 },
+        { label: 'TLS handshake → exchanging certificates', pulseH: H * 0.15 },
+        { label: 'HTTP GET / → request sent',              pulseH: H * 0.32 },
+        { label: 'Response received → 200 OK',             pulseH: H * 0.22 },
+      ];
+
+      const PULSE_W  = 0.15;
+      const DURATION = 1600;
+      const PAUSE    = 280;
+      const CYCLE_PX = 60;
+      const AMP      = 22;
+      const FADE_MS  = 1200;
+
+      let stageIndex = 0;
+      let pulseStart = null;
+      let sineT      = 0;
+      let fadeStart  = null;
+
+      function setStatus(txt) {
+        statusEl.style.opacity = 0;
+        setTimeout(() => { statusEl.textContent = txt; statusEl.style.opacity = 1; }, 150);
+      }
+
+      function clearCanvas() { ctx.clearRect(0, 0, W(), H); }
+
+      function drawPulseFrame(progress, pulseTop) {
+        const w = W();
+        const pulseW   = w * PULSE_W;
+        const leading  = progress * (w + pulseW);
+        const trailing = leading - pulseW;
+
+        clearCanvas();
+        ctx.strokeStyle = ink;
+        ctx.lineWidth = 1;
+        ctx.lineJoin = 'miter';
+        ctx.beginPath();
+        ctx.moveTo(0, BASE);
+
+        if (trailing > 0) ctx.lineTo(Math.min(trailing, w), BASE);
+
+        if (trailing < w && leading > 0) {
+          const x0 = Math.max(trailing, 0);
+          const x1 = Math.min(leading, w);
+          if (trailing >= 0) { ctx.lineTo(x0, BASE); ctx.lineTo(x0, pulseTop); }
+          else { ctx.moveTo(x0, pulseTop); }
+          ctx.lineTo(x1, pulseTop);
+          if (leading <= w) ctx.lineTo(x1, BASE);
+        }
+
+        ctx.lineTo(w, BASE);
+        ctx.stroke();
+      }
+
+      function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+      function drawSineFrame(amp) {
+        const w = W();
+        clearCanvas();
+        ctx.strokeStyle = ink;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = 0; x < w; x++) {
+          const y = MID - amp * Math.sin(((x + sineT) / CYCLE_PX) * Math.PI * 2);
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        sineT = (sineT + 1.5) % CYCLE_PX;
+      }
+
+      function loopSine(ts) {
+        if (!fadeStart) fadeStart = ts;
+        const elapsed = ts - fadeStart;
+        const amp = AMP * easeInOut(Math.min(elapsed / FADE_MS, 1));
+        drawSineFrame(amp);
+        requestAnimationFrame(loopSine);
+      }
+
+      function runStage(ts) {
+        if (!pulseStart) pulseStart = ts;
+        const progress = Math.min((ts - pulseStart) / DURATION, 1);
+        drawPulseFrame(progress, STAGES[stageIndex].pulseH);
+
+        if (progress < 1) { requestAnimationFrame(runStage); return; }
+
+        stageIndex++;
+        if (stageIndex < STAGES.length) {
+          setTimeout(() => {
+            setStatus(STAGES[stageIndex].label);
+            pulseStart = null;
+            requestAnimationFrame(runStage);
+          }, PAUSE);
+        } else {
+          setStatus('connection complete.');
+          setTimeout(() => {
+            setStatus('carrier signal active');
+            fadeStart = null;
+            requestAnimationFrame(loopSine);
+          }, 400);
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      setTimeout(() => {
+        setStatus(STAGES[0].label);
+        requestAnimationFrame(runStage);
+      }, 400);
+    })();
+  </script>
 </body>
 </html>

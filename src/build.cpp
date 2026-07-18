@@ -120,6 +120,11 @@ int run_build(const std::string &root_s, bool quiet) {
     fs::path tdir = root / "templates";
     SiteConf conf = load_conf(root);
 
+    // Wipe dist/ first: without this, articles that go back to draft, get
+    // renamed, or get deleted leave their old rendered page reachable.
+    std::error_code ec;
+    fs::remove_all(dist, ec);
+
     std::map<std::string, std::string> site_vars = {
         {"site_title", conf.get("title", "aayush pal")},
         {"site_url", conf.get("url", "")},

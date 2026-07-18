@@ -211,6 +211,29 @@ std::string fmt_inline(const std::string &s, Ctx &ctx, bool allow_fn) {
                 continue;
             }
         }
+        // --- smart typography: em dash, ellipsis, curly quotes ------------
+        // (never reached for code/verbatim/math/URLs — those already
+        // continue'd above — so this only touches actual prose.)
+        if (c == '-' && i + 1 < n && s[i + 1] == '-' && (i + 2 >= n || s[i + 2] != '-')) {
+            out += cp_utf8(0x2014); // —
+            i += 2;
+            continue;
+        }
+        if (c == '.' && s.compare(i, 3, "...") == 0) {
+            out += cp_utf8(0x2026); // …
+            i += 3;
+            continue;
+        }
+        if (c == '"') {
+            out += cp_utf8(emph_pre_ok(s, i) ? 0x201C : 0x201D); // “ ”
+            i++;
+            continue;
+        }
+        if (c == '\'') {
+            out += cp_utf8(emph_pre_ok(s, i) ? 0x2018 : 0x2019); // ‘ ’
+            i++;
+            continue;
+        }
         // --- plain character ----------------------------------------------
         switch (c) {
             case '&': out += "&amp;"; break;

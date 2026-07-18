@@ -42,10 +42,18 @@ Windows, `-lpthread` on Linux).
 Emacs, refresh the browser. The server pre-loads the whole site into memory,
 answers with ETags/304s, and needs well under a millisecond per request.
 
-Deploying is either of:
-- copy `palsite` + `content/ templates/ static/ site.conf` to a box and run
-  `palsite build && palsite serve -p 8080` behind your TLS proxy, or
-- run `palsite build` anywhere and host `dist/` on any static host.
+**Deployed on Vercel, building directly from `master`** — no second branch,
+no manual publish step. `vercel.json` sets the build command
+(`g++ ... && ./palsite build`) and output directory (`dist`); push to
+`master` and Vercel compiles the tool and rebuilds the site itself. In the
+Vercel dashboard the project just needs Framework Preset = "Other".
+
+`palsite serve` (the in-memory HTTP server in `src/server.cpp`) isn't used
+in production — Vercel's static hosting already does everything it would
+do, plus a CDN. It's there for local parity with `palsite dev`, or for
+self-hosting on a box you control: copy `palsite` +
+`content/ templates/ static/ site.conf`, run
+`palsite build && palsite serve -p 8080` behind a TLS proxy.
 
 ## Writing
 

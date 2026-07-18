@@ -1,6 +1,7 @@
 #+TITLE: How this site is written
 #+DATE: 2026-07-18
 #+SUBTITLE: Org-mode in, a book out — every feature of this site's pipeline, demonstrated.
+#+DRAFT: t
 
 Everything on this site is written in Emacs, in plain org-mode files.
 A small C++ binary converts them to the page you are reading — at

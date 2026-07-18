@@ -2,38 +2,56 @@
    pal.codes — one stylesheet, whole site.
    Edit the tokens below to retheme everything. No build step needed for CSS:
    run `site build` (or let `site dev` pick it up) and refresh.
+
+   One typeface (Newsreader) and one calm palette run the whole site — chrome
+   included. Hard rules are gone in favor of a woven-thread divider
+   (templates/thread.html); --brand-accent survives only as a semantic alert
+   color and as the landing poster's own deliberate hero accent, not as a
+   competing site identity.
    ========================================================================== */
 
+@font-face {
+  font-family: "Newsreader Text";
+  src: url("/fonts/newsreader-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader Text";
+  src: url("/fonts/newsreader-600.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader Text";
+  src: url("/fonts/newsreader-400i.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
 :root {
-  /* -- palette ----------------------------------------------------------- */
-  --paper:      #fffdf6;   /* warm book paper */
-  --paper-2:    #f3efe4;   /* raised surfaces: code, notes */
-  --ink:        #141414;
-  --ink-soft:   #565248;
-  --accent:     #e02020;   /* the punk red */
-  --rule:       #141414;
+  /* -- palette: "Salt" — cool, overcast, quiet ---------------------------- */
+  --paper:      #f4f3ee;
+  --paper-2:    #e8e6dd;   /* raised surfaces: code, notes */
+  --ink:        #1b2023;
+  --ink-soft:   #5b6469;
+  --accent:     #3d6273;   /* the one accent: dateline, links, nav/footer hover */
+  --rule:       #1b2023;
+
+  --brand-accent: #e02020; /* semantic alert + the landing poster's own hero color */
+
+  /* -- accent family: borders, drop cap, blockquote mark ------------------ */
+  --sea-deep:   #26404a;
+  --sea-line:   #9fb0ac;
+  --sun-glow:   #c7cabb;
 
   /* -- type -------------------------------------------------------------- */
   --sans:  system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
-  --serif: "Iowan Old Style", "Sitka Text", "Palatino Linotype", Palatino,
-           "Book Antiqua", Georgia, serif;
+  --serif: "Newsreader Text", "Iowan Old Style", "Sitka Text",
+           "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --mono:  ui-monospace, "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
 
   /* -- reading measure ---------------------------------------------------- */
-  --measure: 42rem;        /* article column width */
+  --measure: 39rem;        /* article column width, tuned for Newsreader at 1.1rem */
   --margin-col: 19rem;     /* sidenote column width */
   --gap: 2.5rem;           /* gap between article and sidenotes */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:    #161512;
-    --paper-2:  #211f1a;
-    --ink:      #e6e2d8;
-    --ink-soft: #a39d8f;
-    --accent:   #ff4b4b;
-    --rule:     #e6e2d8;
-  }
 }
 
 * { box-sizing: border-box; }
@@ -44,7 +62,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--serif);
 }
 
 ::selection { background: var(--accent); color: #fff; }
@@ -75,7 +93,17 @@ body.landing { font-size: 12px; line-height: 18px; text-align: justify; }
   margin-left: 18px;
 }
 
-.grids { height: 32px; margin: 40px 0 18px; align-self: flex-start; }
+/* --- carrier-signal animation: the one script on the site ---------------- */
+.wf { width: 100%; max-width: 720px; margin: 40px 0 10px; }
+.wf canvas { display: block; width: 100%; height: 100px; }
+.wf-status {
+  margin: 2px 0 0;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  min-height: 16px;
+  transition: opacity 0.25s;
+}
 
 .poster-box {
   color: #fff;
@@ -100,25 +128,25 @@ body.landing { font-size: 12px; line-height: 18px; text-align: justify; }
 }
 
 .poster-box a { text-decoration: none; color: #fff; height: 28px; }
-.poster-box a:hover { color: var(--accent); }
+.poster-box a:hover { color: var(--brand-accent); }
 .soon { font-size: 8px; }
 
-.picture { height: 150px; width: 100%; background: var(--accent); }
+.picture { height: 150px; width: 100%; background: var(--brand-accent); }
 .picture img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .recent { margin-top: 22px; width: 100%; text-align: left; }
 .recent-head {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-style: italic;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
   color: var(--ink-soft);
   border-top: 2px solid var(--rule);
   padding-top: 8px;
   margin: 0 0 6px;
 }
 .recent-item { display: block; text-decoration: none; padding: 2px 0; }
-.recent-item:hover { color: var(--accent); }
-.recent-date { font-family: var(--mono); font-size: 10px; color: var(--ink-soft); margin-right: 8px; }
+.recent-item:hover { color: var(--brand-accent); }
+.recent-date { font-variant-numeric: tabular-nums; font-size: 10px; color: var(--ink-soft); margin-right: 8px; }
 
 @media (max-width: 600px) {
   .land-row { flex-direction: column; justify-content: flex-start; }
@@ -134,33 +162,39 @@ body.landing { font-size: 12px; line-height: 18px; text-align: justify; }
 
 body.reading {
   font-family: var(--serif);
-  font-size: 1.185rem;
-  line-height: 1.62;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
-/* --- site header: punk bar over the book --------------------------------- */
+/* --- site header: a soft woven thread instead of a hard rule -------------- */
 .site-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 4px 16px;
-  padding: 18px 24px 12px;
-  border-bottom: 3px solid var(--rule);
-  font-family: var(--sans);
+  gap: 6px 24px;
+  padding: 30px 24px 18px;
 }
 
 .wordmark {
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: -1.2px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: 0;
   text-decoration: none;
 }
 .wordmark:hover { color: var(--accent); }
 
-.site-nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.95rem; }
 .site-nav a { text-decoration: none; color: var(--ink-soft); }
 .site-nav a:hover { color: var(--accent); }
+
+/* --- the woven thread: replaces every hard rule in the site's chrome ------
+   Two mirrored sine paths sharing the same nodes — reads as two strands
+   twisted together rather than a drawn line. templates/thread.html. */
+.thread { display: block; width: 100%; height: 12px; margin: 0 0 6px; }
+.thread svg { display: block; width: 100%; height: 100%; }
 
 /* --- page shell ----------------------------------------------------------
    The article column is `--measure` wide; on big screens an extra margin
@@ -182,52 +216,53 @@ body.reading {
 .art-head { margin: 2.2rem 0 3rem; }
 
 .art-date {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--accent);
   margin: 0 0 0.6rem;
 }
 
 .art-title {
-  font-size: 2.6rem;
-  line-height: 1.12;
+  font-size: 2.15rem;
+  line-height: 1.15;
   letter-spacing: -0.015em;
   margin: 0;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .subtitle {
   font-style: italic;
   color: var(--ink-soft);
-  font-size: 1.25rem;
-  margin: 0.7rem 0 0;
+  font-size: 1.05rem;
+  margin: 0.6rem 0 0;
 }
 
 /* --- article body -------------------------------------------------------- */
 article p { margin: 0 0 1.15em; }
 
 article h2, article h3, article h4, article h5 {
-  font-family: var(--sans);
-  letter-spacing: -0.01em;
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.005em;
   line-height: 1.25;
   margin: 2.2em 0 0.7em;
 }
-article h2 { font-size: 1.45rem; }
-article h3 { font-size: 1.18rem; }
+article h2 { font-size: 1.4rem; }
+article h3 { font-size: 1.15rem; }
 article h4 { font-size: 1.02rem; }
 
-/* red tick before section heads — small punk signature */
-article h2::before { content: "/ "; color: var(--accent); }
+/* slash mark before section heads — the plain-page default. Real articles
+   (.article-wrap) override this below with an italic deck head instead. */
+article h2::before { content: "/ "; color: var(--accent); font-weight: 400; }
 
 article a {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 1.5px;
+  color: var(--accent);
+  text-decoration-color: var(--sea-line);
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
 }
-article a:hover { background: var(--accent); color: #fff; text-decoration: none; }
+article a:hover { text-decoration-color: var(--accent); }
 
 .ul { text-decoration: underline; text-underline-offset: 3px; }
 
@@ -236,17 +271,28 @@ article li { margin-bottom: 0.45em; }
 article li p { margin-bottom: 0.45em; }
 
 article dl { margin: 0 0 1.15em; }
-article dt { font-family: var(--sans); font-weight: 700; font-size: 1rem; }
+article dt { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; }
 article dd { margin: 0.15em 0 0.9em 0; padding-left: 1.2em; border-left: 2px solid var(--paper-2); }
 
 article blockquote {
   margin: 1.6em 0;
-  padding: 0.2em 0 0.2em 1.4em;
-  border-left: 3px solid var(--accent);
+  padding: 0.2em 0 0.2em 1.5em;
+  border-left: 3px solid var(--sun-glow);
   font-style: italic;
   color: var(--ink-soft);
+  position: relative;
 }
-article blockquote footer { font-style: normal; font-family: var(--sans); font-size: 0.85rem; margin-top: 0.5em; }
+article blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 0.1em;
+  top: -0.05em;
+  font-size: 1.5em;
+  color: var(--sun-glow);
+  font-style: normal;
+  line-height: 1;
+}
+article blockquote footer { font-style: italic; font-size: 0.85rem; margin-top: 0.5em; }
 article blockquote footer::before { content: "— "; }
 
 article hr {
@@ -256,23 +302,26 @@ article hr {
 }
 article hr::after {
   content: "* * *";
-  font-family: var(--sans);
+  font-style: italic;
   letter-spacing: 0.6em;
   color: var(--ink-soft);
 }
 
-/* --- code ----------------------------------------------------------------- */
+/* --- code -------------------------------------------------------------------
+   The one deliberate exception to "one font": actual code stays monospace,
+   since that's a legibility need, not a stylistic one. -------------------- */
 article code {
   font-family: var(--mono);
   font-size: 0.82em;
   background: var(--paper-2);
   padding: 0.1em 0.35em;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 article pre {
   background: var(--paper-2);
-  border: 2px solid var(--rule);
+  border: 1px solid var(--sea-line);
+  border-radius: 6px;
   padding: 0.9rem 1.1rem;
   overflow-x: auto;
   margin: 1.5em 0;
@@ -284,27 +333,26 @@ article pre[data-lang]::before {
   content: attr(data-lang);
   position: absolute;
   top: 0; right: 0;
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--rule);
-  color: var(--paper);
-  padding: 2px 8px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  padding: 3px 10px;
+  border-radius: 0 6px 0 6px;
 }
 
 /* --- figures -------------------------------------------------------------- */
 article img { max-width: 100%; height: auto; }
 article figure { margin: 1.8em 0; }
-article figure img { display: block; width: 100%; border: 2px solid var(--rule); }
+article figure img { display: block; width: 100%; border: 1px solid var(--sea-line); border-radius: 6px; }
 article figcaption {
-  font-family: var(--sans);
+  font-style: italic;
   font-size: 0.82rem;
   color: var(--ink-soft);
   margin-top: 0.5em;
 }
-article figcaption::before { content: "fig. "; color: var(--accent); font-weight: 700; }
+article figcaption::before { content: "fig. "; color: var(--accent); font-style: normal; font-weight: 600; }
 article figure.plain img { border: none; }
 
 /* --- tables ---------------------------------------------------------------- */
@@ -315,14 +363,14 @@ article table {
   width: 100%;
 }
 article th {
-  font-family: var(--sans);
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.92rem;
   text-align: left;
-  border-bottom: 2px solid var(--rule);
+  border-bottom: 1.5px solid var(--sea-line);
   padding: 0.4em 0.8em 0.4em 0;
 }
 article td { border-bottom: 1px solid var(--paper-2); padding: 0.4em 0.8em 0.4em 0; }
-.table-caption { font-family: var(--sans); font-size: 0.82rem; color: var(--ink-soft); margin-top: -1em; }
+.table-caption { font-style: italic; font-size: 0.82rem; color: var(--ink-soft); margin-top: -1em; }
 
 /* --- math ------------------------------------------------------------------ */
 math { font-size: 1.05em; }
@@ -336,16 +384,15 @@ math[display="block"] { margin: 1.4em 0; overflow-x: auto; overflow-y: hidden; }
 
 .sn-toggle { cursor: pointer; }
 .sn-ref, .sn-num {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 0.72em;
+  font-weight: 600;
+  font-size: 0.75em;
   color: var(--accent);
 }
-.mn-mark { color: var(--accent); font-family: var(--sans); font-size: 0.9em; }
+.mn-mark { color: var(--accent); font-size: 0.9em; }
 
 .sidenote {
-  font-family: var(--sans);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-style: italic;
   line-height: 1.5;
   color: var(--ink-soft);
 }
@@ -368,7 +415,8 @@ math[display="block"] { margin: 1.4em 0; overflow-x: auto; overflow-y: hidden; }
     display: block;
     margin: 0.8em 0;
     padding: 0.7em 1em;
-    border: 2px solid var(--rule);
+    border: 1px solid var(--sea-line);
+    border-radius: 6px;
     background: var(--paper-2);
   }
   .sn-toggle:hover .sn-ref, .sn-toggle:hover.mn-mark { text-decoration: underline; }
@@ -376,25 +424,58 @@ math[display="block"] { margin: 1.4em 0; overflow-x: auto; overflow-y: hidden; }
 
 /* --- special blocks: #+begin_note / #+begin_aside / #+begin_warning -------- */
 .block-note, .block-aside, .block-warning {
-  font-family: var(--sans);
   font-size: 0.92rem;
-  border: 2px solid var(--rule);
+  border: 1px solid var(--sea-line);
+  border-radius: 6px;
   padding: 0.9rem 1.2rem;
   margin: 1.6em 0;
   background: var(--paper-2);
 }
-.block-warning { border-color: var(--accent); }
+.block-warning { border-color: var(--brand-accent); } /* semantic alert — the one deliberate exception */
 .block-note p:last-child, .block-aside p:last-child, .block-warning p:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Article pages only — the "Editorial" system. Larger, airier setting than
+   the base reading rules above, plus the two flourishes that only belong on
+   an actual post: an italic deck head instead of the punk tick, and a
+   two-line drop cap on the opening paragraph.
+   ========================================================================== */
+
+.article-wrap article {
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.62;
+}
+
+.article-wrap article h2 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  letter-spacing: -0.005em;
+}
+.article-wrap article h2::before { content: none; }
+
+.article-wrap article > p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-weight: 600;
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.82;
+  padding: 0.02em 0.08em 0 0;
+  color: var(--sea-deep);
+}
 
 /* ==========================================================================
    Words listing
    ========================================================================== */
 
 .list-title {
-  font-family: var(--sans);
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: -2px;
+  font-style: italic;
+  font-size: 2.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 2.5rem 0 0.4rem;
 }
 .tick { color: var(--accent); }
@@ -402,12 +483,15 @@ math[display="block"] { margin: 1.4em 0; overflow-x: auto; overflow-y: hidden; }
 .list-blurb { color: var(--ink-soft); margin: 0 0 2.5rem; font-style: italic; }
 
 h2.year {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
   color: var(--ink-soft);
-  border-bottom: 2px solid var(--rule);
-  padding-bottom: 4px;
+  background-image: linear-gradient(to right, var(--sea-line) 40%, transparent 0%);
+  background-position: bottom;
+  background-size: 7px 1.5px;
+  background-repeat: repeat-x;
+  padding-bottom: 6px;
   margin: 2.2rem 0 0.8rem;
 }
 
@@ -418,12 +502,13 @@ h2.year {
   text-decoration: none;
   padding: 0.55rem 0.4rem;
   margin: 0 -0.4rem;
+  border-radius: 6px;
 }
 .word-list a:hover { background: var(--rule); color: var(--paper); }
 .word-list a:hover .wl-date, .word-list a:hover .wl-sub { color: var(--paper); }
-.word-list a:hover .wl-title { color: var(--accent); }
-.wl-date { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-soft); display: inline-block; width: 7.5rem; }
-.wl-title { font-weight: 700; }
+.word-list a:hover .wl-title { color: var(--sun-glow); }
+.wl-date { font-variant-numeric: tabular-nums; font-size: 0.75rem; color: var(--ink-soft); display: inline-block; width: 7.5rem; }
+.wl-title { font-weight: 600; }
 .wl-sub { display: block; font-size: 0.95rem; font-style: italic; color: var(--ink-soft); padding-left: 7.5rem; }
 
 @media (max-width: 600px) {
@@ -435,20 +520,19 @@ h2.year {
    Plain pages (/now /reads /uses /bookmarks) + footer
    ========================================================================== */
 
-.plain-page .art-title { font-size: 2.1rem; margin: 2.2rem 0 1.4rem; }
+.plain-page .art-title { font-size: 1.8rem; margin: 2.2rem 0 1.4rem; }
+
+.page > .thread { margin: 4.5rem 0 14px; clear: both; }
 
 .site-foot {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
-  font-family: var(--sans);
-  font-size: 12px;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--ink-soft);
-  border-top: 3px solid var(--rule);
-  margin-top: 4.5rem;
-  padding: 12px 0 40px;
-  clear: both;
+  padding: 0 0 40px;
 }
 .site-foot a { color: inherit; text-decoration: none; margin-right: 10px; }
 .site-foot a:hover { color: var(--accent); }
