@@ -1,0 +1,17 @@
+#+TITLE: now
+#+DESCRIPTION: What I am up to nowadays.
+
+This is a list of things I am upto nowadays.
+
+I believe a great character of a person is defined by the small steps
+they take to reach their goals. If you want to read more about what is
+the purpose behind adding a /now/ page, you can do so
+[[https://nownownow.com/about][here]].
+
+- Math :: Diving into some pure math to activate some dead brain cells. \\
+  Update: Time to head into some applications soon.
+- Build products :: Open to working on interesting foundational ideas. \\
+  Update: Building tools with least or no dependencies.
+- Run :: Getting back into running after a long break. Watch this:
+  [[https://youtu.be/oLXG6ITzLIo][Casey Neistat's Mind Games]] \\
+  Update: Successfully reached my goal weight, now improving runs.

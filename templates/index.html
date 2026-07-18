@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{site_title}}</title>
+  <meta name="description" content="{{site_description}}"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{site_title}}"/>
+  <link rel="icon" type="image/svg+xml" href="/img/logopal.svg"/>
+</head>
+<body class="landing">
+  <div class="land-container">
+    <div class="land-row">
+      <div class="land-left">
+        <div class="poster-box">
+          <img class="poster-logo" src="/img/logopal.svg" alt="aayush pal"/>
+          <div class="poster-nav">
+            <div class="poster-nav-list">
+              <a href="/words/">/ words</a>
+              <a href="/reads/">/ reading</a>
+              <a href="/now/">/ now</a>
+            </div>
+            <div class="poster-nav-list">
+              <a href="/bookmarks/">/ bookmarks</a>
+              <a href="/uses/">/ tools</a>
+              <a href="#">/ studio <span class="soon">(coming soon)</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="picture">
+          <img src="/img/me.png" alt="a photo of me"/>
+        </div>
+      </div>
+
+      <div class="land-right">
+        <img class="grids" src="/img/grids.svg" alt=""/>
+        <p>
+          Hello dear netizen! You seem to have stumbled upon my html.<br/>
+          This collection of english words I am putting together aims to make
+          good use of your time here. I will be writing about tech, my
+          opinions about the world, prose or stanzas, experiences, short
+          notes, ideas - all here. <br/>I graduated in 2022, but I have been
+          working more or less since I was 17 or maybe 16 if you count a
+          completely unpaid C# project. <br/>Currently I am researching,
+          building products that make mindful use of LLMs or AI. I have been
+          cognizant to the notion that AI in its current state is nothing but
+          thousands of different UIs centered around a textbox. I believe a
+          good product should challenge that norm. <br/>Areas of product that
+          intrigue me in general are 'tools for thought' and 'knowledge/text
+          segmentation'. I have been day-dreaming a software paradigm that
+          lets humans interact with their knowledge in physical form.
+        </p>
+        <div class="recent">
+          <p class="recent-head">recent words</p>
+          {{recent}}
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

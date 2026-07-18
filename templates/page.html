@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{title}} &middot; {{site_title}}</title>
+  <meta name="description" content="{{description}}"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{site_title}}"/>
+  <link rel="icon" type="image/svg+xml" href="/img/logopal.svg"/>
+</head>
+<body class="reading">
+  {{include:nav.html}}
+  <main class="page">
+    <article class="plain-page">
+      <h1 class="art-title">{{title}}</h1>
+      {{content}}
+    </article>
+    {{include:footer.html}}
+  </main>
+</body>
+</html>

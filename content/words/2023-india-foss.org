@@ -1,0 +1,111 @@
+#+TITLE: Notes from 2023 India FOSS
+#+DATE: 2023-10-29
+#+SUBTITLE: Sessions, people and conversations from IndiaFOSS 2023.
+
+This is most probably the only event I have attended this year and it
+was fun as always. Met some cool people, had some interesting
+conversations with students in college and how they are promoting
+using Linux & BSD systems within the institution. Which I like a lot.
+I remember my time in college, where I would introduce people around
+me to linux and how they would all look so baffled as to what that
+was. My college was third tier, that means there were not a lot of
+good and interested kids around me in the classes. But I would always
+find people like me interested in tech, met some AI people, some
+blockchain people throughout my college. I digress,
+
+This year's IndiaFoss started with the presenter talking about her
+personal experience with the FOSS community and how it has been a
+wonderful experience for her to lead the IndiaFoss movement just an
+year in. All the things she got to learn and other things she helped
+improve within the operations and tech side of things.
+
+Then she moved on to talk about some of the technical debt that the
+IndiaFoss organization's tech platform had accumulated over time due
+to improper management and not having enough resources to do a look
+back and clear things out.
+
+Then an engineer came on-stage to talk about exactly what the
+organization has been upto in the last few months leading up to this
+event. He mentioned they have been simplifying, open sourcing the code
+for the main website and moving away from the frappe's closed
+ecosystem for hosting that landing page, I guess. He also announced:
+
+- Foss Profile: This is kind of IndiaFoss' version of read.cv or
+  bento.me platforms. A collection of the digital footprint of a
+  person to maybe build a job profile. Which can be a great talent
+  pool considering this community has a lot of extremely excited and
+  hardworking people.
+- Newsletters will be hosted on the new frappe platform. Listmonk is
+  being used other ways unmentioned.
+- They are starting an ecommerce store for selling Merchandise by Jan
+  2024.
+
+There were two tracks distributed in 2 auditoriums.
+
+* Session 1: Akash talks about Vyaakaran
+
+He talks about his own programming language in 2021. Mentions compiler
+design course in his college. Lots of free time. A language to
+understand formal languages and automata theory. The course this was
+in is called Theory of Computation.
+
+#+begin_quote
+What is Formal Language and Automata theory? A branch of CS that deals
+with abstract machines (Automata) that can understand a pattern
+defined by a set of rules (language).
+#+end_quote
+
+- Real world applications
+  - Regular expressions, state machines
+  - Compilers, parsers
+- No practical, visual tools for learning about automata and formal
+  language. Theory can feel limiting.
+- Why?
+  - Small niche
+  - Can be extended
+  - Would be useful in learning compiler design
+- What is Vyaakaran? A tool to visualize formal grammar, and state
+  machines. Learn about context-free grammar.
+- This could be a great REPL kinda tool while making a programming
+  language.
+- How?
+  - Built with typescript in 2022. But learnt a lot, and helping a
+    lot of other students to learn as well.
+  - Vue 3 for interactive editor
+  - Svelte - for static
+- The new version could run a Turing machine.
+- Things he learnt
+  - It's ok to reinvent the wheel.
+  - People will stop you. When you build, you learn more about the
+    underneath of how things work.
+  - Peeling a layer of abstraction.
+  - Take things like a challenge. Very rewarding, even if you fail,
+    it still makes you a better engineer.
+  - A FOSS project is not just a collection of files. It's an emotion
+    of the developers.
+  - Vyaakaran is a manifestation that came out of learning.
+- DSLs are fun
+  - Domain specific languages
+  - Used by both programmers & non-programmers.
+  - Can be more powerful and easier than complex UI.
+- Vyaakaran has it's own DSL: Lexico (search library with operators).
+  He made Vyaakaran open source on stage. Very good stage presence
+  and work.
+
+* Session 2: Arpit Tripathi on Private 5G with open source 5G cores
+
+He was a part of the first 5g usecase lab to be awarded. Yesterday
+Modi awarded 100 more labs.
+
+- What was the motivation?
+  - General usage: WiFi
+  - Handover between two devices is better in 5g
+  - Security: WPA. Uses AKA protocol.
+- Deployment: types
+  - Not every enterprise has the resources to invest. Therefore there
+    are certain deployment models like 3gpp.
+  - 1st: exclusively inside the premises.
+  - 2nd: cloud native core functions over cloud
+  - 3rd: the RAN is shared. Look out for RAN?
+  - 4th: enterprise slice model: mentioned 5g network slicing.
+- Industry 4.0 goals.

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>words &middot; {{site_title}}</title>
+  <meta name="description" content="Writing by {{site_author}}"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{site_title}}"/>
+  <link rel="icon" type="image/svg+xml" href="/img/logopal.svg"/>
+</head>
+<body class="reading">
+  {{include:nav.html}}
+  <main class="page">
+    <h1 class="list-title">words<span class="tick">.</span></h1>
+    <p class="list-blurb">Technical notes, observations, proofs, and thought pieces.
+    Subscribe via <a href="/feed.xml">rss</a>.</p>
+    {{items}}
+    {{include:footer.html}}
+  </main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "palsite-dev",
+      "runtimeExecutable": "./palsite.exe",
+      "runtimeArgs": ["dev", "-p", "8317"],
+      "port": 8317
+    }
+  ]
+}

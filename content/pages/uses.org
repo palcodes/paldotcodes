@@ -1,0 +1,26 @@
+#+TITLE: uses
+#+DESCRIPTION: Software and hardware I use.
+
+I like to use open source versions of tools out there, hope is to be
+able to build a lot of them on my own.
+
+* Software
+
+- Mac OS :: Basically on it until I figure out a perfect laptop that runs with dualboot.
+- Arc / Firefox :: Browser — Arc on Mac, Firefox on Linux
+- MetaText / Elk :: Mastodon — Mobile / Desktop
+- Emacs :: Where all of this gets written. Org-mode is home.
+- Cursor :: Been trying this new AI focused VSCode spin off
+- Alacritty :: For terminal
+- Vore :: For RSS [[https://vore.website][vore.website]]
+- VLC :: For video content
+- Spotify / Soundcloud :: For audio content
+
+* Hardware
+
+- M1 MacBook Air :: The original, my favorite.
+- Apple Watch :: For tracking my runs.
+- Kindle :: For when I am travelling and I want to read.
+- Lenovo Ideapad 310 :: At the end of it's life, I am looking for a new laptop
+- Sony XM4 :: The best form
+- Sony LinkBuds S :: Amazingly small

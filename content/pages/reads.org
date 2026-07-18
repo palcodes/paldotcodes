@@ -1,0 +1,25 @@
+#+TITLE: reads
+#+DESCRIPTION: What I am currently reading — my book tracker.
+
+Here's a list of what I am currently reading. I will keep this updated
+as I read more, kind of like my tracker.
+
+* Reading
+
+- Haruki Murakami :: [[https://www.goodreads.com/book/show/24013720-wind-pinball][Wind/Pinball: Two Novels]]
+- Oscar Levin :: [[https://discrete.openmathbooks.org/dmoi3.html][Discrete Mathematics: An Open Introduction]]
+
+* To Read
+
+- Nassim Taleb :: The Black Swan & Fooled by Randomness
+- Douglas Hofstadter :: Gödel, Escher, Bach: an Eternal Golden Braid
+- Harold Abelson :: Structure and Interpretation of Computer Programs (SICP)
+
+* Read
+
+- Kenneth H Rosen :: Discrete Mathematics And Its Applications
+- Ayn Rand :: The Fountainhead
+- Marcus Aurelius :: Meditations
+- Akio Morita :: Made in Japan
+- Isaac Asimov :: Foundation and Earth
+- Charles Petzold :: CODE

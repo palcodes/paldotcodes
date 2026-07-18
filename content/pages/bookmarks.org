@@ -1,0 +1,22 @@
+#+TITLE: bookmarks
+#+DESCRIPTION: Personal blogs, articles and websites worth revisiting.
+
+Personal blogs, articles, websites I like to revisit and are worth a
+visit for you as well.
+
+- David Foster Wallace: This is Water :: https://fs.blog/david-foster-wallace-this-is-water/
+- LessWrong community :: https://www.lesswrong.com/
+- Drew Devault's blog :: https://drewdevault.com/
+- Devine Lu Linvega's wiki :: https://wiki.xxiivv.com/site/home.html
+- Collection of maths notes :: https://toywiki.xyz/
+- Mathematical Functions Grimoire :: https://fungrim.org/
+- Roger Ebert's film list :: https://www.rogerebert.com/great-movies
+- Uses this :: https://usesthis.com/
+- Craig Mod :: https://craigmod.com/
+- Gwern Branwen's blog :: https://gwern.net/
+- Linus Lee's blog :: https://thesephist.com/
+- Dan Luu :: https://danluu.com/
+- Dave Gauer :: https://ratfactor.com/
+- Brandur Leach :: https://brandur.org/
+- Mr Karan :: https://mrkaran.dev/
+- Richard Feynman Electricity :: https://youtu.be/kS25vitrZ6g

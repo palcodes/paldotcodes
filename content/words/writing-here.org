@@ -1,0 +1,98 @@
+#+TITLE: How this site is written
+#+DATE: 2026-07-18
+#+SUBTITLE: Org-mode in, a book out — every feature of this site's pipeline, demonstrated.
+
+Everything on this site is written in Emacs, in plain org-mode files.
+A small C++ binary converts them to the page you are reading — at
+build time, ahead of every request. There is no JavaScript on this
+page, no fonts being downloaded, no framework. This article is the
+living reference of what the pipeline supports; its [[https://github.com/palcodes/paldotcodes][source .org file]]
+is in the repository.
+
+* Sidenotes and citations
+
+Numbered footnotes become margin sidenotes,[fn:1] which is where
+citations live too.[fn:2] On a wide screen they sit in the right
+margin like a well-set book; on a phone, tap the number to unfold
+them. You can also drop an unnumbered thought into the margin with an
+inline note.[fn::Like this one — written inline in the org file as
+=[fn::text]=, it never gets a number.]
+
+[fn:1] Written in org as =[fn:1]= with the definition anywhere below —
+exactly the syntax =org-footnote-new= inserts for you.
+
+[fn:2] Tufte, Edward R. /The Visual Display of Quantitative
+Information/. Graphics Press, 1983. A citation is just a footnote
+whose text is a reference.
+
+* Mathematics
+
+Inline math like \(e^{i\pi} + 1 = 0\) sits in the sentence. Display
+math gets its own line:
+
+\[ \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} = \prod_{p \in \mathbb{P}} \frac{1}{1 - p^{-s}} \]
+
+Proof-style writing works — cases, alignments, matrices:
+
+\[ |x| = \begin{cases} x & x \geq 0 \\ -x & x < 0 \end{cases} \qquad
+   A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \]
+
+The LaTeX is converted to MathML when the site is built, so the
+browser renders it natively — zero scripts, zero layout shift. Write
+it in org the way you always do: =\( ... \)= for inline, =\[ ... \]=
+for display.
+
+* Code
+
+Source blocks carry a language tag:
+
+#+begin_src c
+int main(void) {
+    printf("the whole site is one binary\n");
+    return 0;
+}
+#+end_src
+
+And inline ~code~ or =verbatim= comes straight from org's tildes and
+equals signs.
+
+* Images
+
+#+CAPTION: The grid mark from the landing page. Captions come from =#+CAPTION=.
+[[file:/img/grids.svg]]
+
+Drop image files in =static/img/=, reference them with a plain org
+file link. An =#+ATTR_HTML: :class plain= line above removes the
+frame border.
+
+* Tables, quotes, structure
+
+| element    | org syntax          | rendered as        |
+|------------+---------------------+--------------------|
+| emphasis   | =/slashes/=         | /italic serif/     |
+| strong     | =*asterisks*=       | *bold*             |
+| checkbox   | =- [X] item=        | a done task        |
+| dividers   | five dashes         | a section break    |
+
+#+begin_quote
+Perfection is achieved, not when there is nothing more to add, but
+when there is nothing left to take away.
+-- Antoine de Saint-Exupéry
+#+end_quote
+
+-----
+
+A =#+begin_note= block becomes a framed aside for things that don't
+belong in the main current of the text:
+
+#+begin_note
+The whole toolchain is ~site build~, ~site dev~ for writing with live
+reload, and ~site serve~ in production — one binary, no dependencies,
+the entire site served from RAM.
+#+end_note
+
+That's the whole dialect. Open Emacs, write org, save — the page is
+already built by the time you switch to the browser.
+
+P.S. This line was added while the dev server was running — ~site dev~
+picked it up automatically.

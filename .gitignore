@@ -1,3 +1,9 @@
 .lsp
 .clj-kondo
 .DS_Store
+
+# build artifacts
+dist/
+palsite
+palsite.exe
+*.o

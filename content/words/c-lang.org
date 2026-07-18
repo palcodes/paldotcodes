@@ -1,0 +1,241 @@
+#+TITLE: Notes about the C language
+#+DATE: 2023-10-26
+#+SUBTITLE: Working through Beej's guide to C.
+
+Notes taken while reading [[https://beej.us/guide/bgc/][Beej's guide to C]].
+
+* About
+
+- Originally created to construct programs for the Unix operating
+  system, and a flavor of C called ANSI C was also used in Plan9.
+- Also was then used to rewrite the Unix kernel.
+- Compilers for C come built in with most operating systems, eg: gcc,
+  clang.
+
+* Language
+
+- Anything between the digraphs ~/*~ and ~*/~ is a comment. Also ~//~.
+- ~#include~ tells the C Preprocessor to include a specified file.
+- Two stages in compilation of C code:
+  - Preprocessor: anything that starts with the pound sign ~#~ or
+    "octothorpe" is handled by the Preprocessor (common /preprocessor
+    directives/). Preprocessor processes code starting with ~#~,
+    output goes to the Compiler, which compiles it down to assembly.
+  - Compiler: rest all will be handled by the compiler.
+- Basic point but the ~stdio.h~ header file allows to perform bunch of
+  I/O functionality.
+- The main function is called automatically when the program starts
+  executing. Nothing else will be executed before ~main()~.
+- Languages that typically aren't compiled are called /interpreted/
+  languages. But as we mentioned with Java and Python, they also have
+  a compilation step. And there's no rule saying that C can't be
+  interpreted. (There are C interpreters out there!) In short, it's a
+  bunch of gray areas. Compilation in general is just taking source
+  code and turning it into another, more easily-executed form.
+
+* Variable
+
+- A variable is a name for some data that's stored in memory at some
+  address. Looking at variables this way helps to understand pointers
+  better (later).
+- Variable type needs to be defined when declaring, and that type
+  will stay unchanged until it falls out of scope.
+- Always explicitly initialize variables to some values before you
+  use them.
+- ~printf()~ format specifiers:
+
+  | specifier | type    |
+  |-----------+---------|
+  | ~%d~      | integer |
+  | ~%s~      | string  |
+  | ~%f~      | float   |
+  | ~%zu~     | size_t  |
+  | ~%p~      | pointer |
+
+- C originally did not have boolean. In C, ~0~ means false, and any
+  other number, for eg. ~1~ or ~-44~, means true. If you
+  ~#include <stdbool.h>~ you can also use the ~bool~ keyword.
+- C has a ternary operator: ~y += x > 10 ? 17 : 37;~ means
+
+  #+begin_src c
+  if (x > 10)
+      y += 17;
+  else
+      y += 37;
+  #+end_src
+
+- ~i++~ & ~i--~: the value of the expression is first computed with
+  the value as-is. ~++i~ & ~--i~: this happens before the expression
+  is evaluated.
+- ~sizeof~ operator is used to get the size (in bytes) of a
+  particular expression.
+  - C has a special data type to represent the return value of
+    ~sizeof~. It's ~size_t~. All we know is that it's an unsigned
+    integer type. ~%zu~ is the format specifier for ~size_t~.
+  - Also this is a compile-time operation.
+- ~switch~ only works with equality comparisons with constant
+  numbers.
+  - Evaluates an expression to an integer value, jumps to the case
+    that corresponds to that value. Execution continues from that
+    point.
+  - If a ~break~ statement is encountered, then execution jumps out
+    of the switch. If no break is applied, it will /fall through/ and
+    execute all the cases without a break.
+  - Is switch faster? Maybe, maybe not. But switch cannot do things
+    like ~>~ or ~<=~ and floating point and other types.
+- A not-uncommon use of ~while~ loops is for infinite loops where you
+  repeat while true:
+
+  #+begin_src c
+  while (1) {
+      printf("1 is always true, so this repeats forever\n");
+  }
+  #+end_src
+
+- All three parts of a ~for~ loop are optional. An empty for loop
+  ~for(;;)~ will run forever.
+
+* Functions
+
+- Arguments and return value types have to be predeclared.
+- A parameter is a special type of local variable into which the
+  arguments are copied. Thus, a parameter is a /copy/ of the
+  argument, not the argument itself.
+- Functions will be defined before being called.
+- Passing by value basically means we copy the value of the argument
+  into the parameter of the function. Unless returned, no value in
+  the parent, for eg. ~main~, changes.
+- Function prototypes look something like ~int foo(void);~ where we
+  have created a prototype before defining the function and it's okay
+  to call it before definition.
+- Use the ~void~ keyword as parameter instead of an empty parameter
+  list for function definitions.
+
+* Pointers
+
+- When you have a data type (like your typical ~int~) that uses more
+  than a byte of memory, the bytes that make up the data are always
+  adjacent to one another in memory. Sometimes they're in the order
+  that you expect, and sometimes they're not.[fn:1] While C doesn't
+  guarantee any particular memory order (it's platform-dependent),
+  it's still generally possible to write code in a way that's
+  platform-independent where you don't have to even consider these
+  pesky byte orderings.
+- A pointer holds the address of a data. It tells us where in memory
+  a data point is stored.
+- A dereference operator is used to get the original data indirectly
+  from the pointer variable.
+- ~&i~ ampersand will get the address of the variable ~i~, it cannot
+  be on the left side of a statement.
+- The main use of pointers is when you might want to return more than
+  a single value from the execution of a function (while we know
+  functions don't allow multiple returns like in Go). Pointers will
+  allow you to point to that address, data and be able to mutate it.
+- A question: do we always use pointers in case of complex functions?
+  (mutating multiple values for eg.)
+- When using pointers, ~j~ for eg. is the address while ~*j~ will
+  give the value at that address.
+- Any pointer variable of any pointer type can be set to a special
+  value called ~NULL~. This indicates that this pointer doesn't point
+  to anything.
+
+  #+begin_src c
+  int *p;
+  p = NULL;
+  #+end_src
+
+- Despite being called [[https://en.wikipedia.org/wiki/Null_pointer#History][the billion dollar mistake by its creator]],
+  the ~NULL~ pointer is a good [[https://en.wikipedia.org/wiki/Sentinel_value][sentinel value]] and general indicator
+  that a pointer hasn't yet been initialized. (Of course, like other
+  variables, the pointer points to garbage unless you explicitly
+  assign it to point to an address or ~NULL~.)
+
+* Array
+
+- Array length can be read inside a function with the array passed as
+  an argument.
+- ~sizeof(int)~ is basically calling the sizeof fn to check on the
+  size of the int array without creating an array.
+- When initializing an array you don't need to fill the array to the
+  size. But you definitely can't add more.
+
+* Strings
+
+- ~char *s = "Hello, world!";~ is a pointer initialization to the
+  first character in the string, but is immutable. ~s[0] = 'z';~ is
+  not allowed. Quite the opposite when you ~char s[] = "Hello,
+  world!";~.
+- C follows a different route with implementing strings in the
+  language, wherein it stores the bytes of a string, and marks the
+  end of a string with a special byte called the terminator.
+  - A pointer to the first character in the string.
+  - A zero-valued byte (or ~NUL~ character) somewhere in memory after
+    the pointer that indicates the end of the string.
+  - A ~NUL~ character can be written in C as ~\0~.
+
+* Structs
+
+- Structs is a convenient way to handle data. Multiple parameters can
+  be replaced with a single type. It basically allows a user to
+  create types, to define data models.
+- ~struct car { ... }~ is how you define a struct type. ~struct car
+  honda~ is how you define a variable of struct type car.
+- ~struct car honda = {"honda city", 123, 44}~ — you could initialize
+  it this way but imagine if the order of the struct's data is
+  changed, that would break the whole code. Instead you could write
+  ~struct car honda = {.name="honda city", .speed=123, .price=44}~.
+- There are basically two cases when you'd want to pass a pointer to
+  the struct as the argument to a function:
+  1. You need the function to be able to make changes to the struct
+     that was passed in, and have those changes show in the caller.
+  2. The struct is somewhat large and it's more expensive to copy it
+     onto the stack than it is to just copy a pointer.
+- We just need to write the body. One attempt might be:
+
+  #+begin_src c
+  void set_price(struct car *c, float new_price) {
+      c.price = new_price;  // ERROR!!
+  }
+  #+end_src
+
+  That won't work because the dot operator only works on structs — it
+  doesn't work on /pointers/ to structs.
+- Ok, so we can dereference the struct to de-pointer it to get to the
+  struct itself, which we should be able to use the dot operator on:
+
+  #+begin_src c
+  void set_price(struct car *c, float new_price) {
+      (*c).price = new_price;  // Works, but is ugly and non-idiomatic :(
+  }
+  #+end_src
+
+- So this is where the arrow operator comes in. The arrow operator
+  helps refer to fields in pointers to structs:
+
+  #+begin_src c
+  void set_price(struct car *c, float new_price) {
+      c->price = new_price;  // This looks so much better!
+  }
+  #+end_src
+
+* File I/O
+
+- Before diving into anything else:
+  - ~stdin~: Standard Input, generally the keyboard by default.
+  - ~stdout~: Standard Output, generally the screen by default.
+  - ~stderr~: Standard Error, generally the screen by default, as
+    well.
+  - These are the core I/O streams assigned to all programs or
+    processes running on a Unix system.
+- Reading text files:
+  - Streams are generally categorized in two different ways: /text/
+    and /binary/.
+  - There is a special character defined as a macro: ~EOF~. This is
+    what ~fgetc()~ will return when the end of the file has been
+    reached and you've attempted to read another character.
+  - ~fgetc~ — to read a character at a time. ~fgets~ — to read lines.
+- Writing files:
+  - ~fputc~, ~fputs~, ~fprintf~ are basically the one-to-one
+    similar to the readers.
+
+[fn:1] See [[https://en.wikipedia.org/wiki/Endianness][endianness]] — byte order is a property of the platform.

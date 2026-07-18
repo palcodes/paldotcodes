@@ -1,0 +1,454 @@
+/* ==========================================================================
+   pal.codes — one stylesheet, whole site.
+   Edit the tokens below to retheme everything. No build step needed for CSS:
+   run `site build` (or let `site dev` pick it up) and refresh.
+   ========================================================================== */
+
+:root {
+  /* -- palette ----------------------------------------------------------- */
+  --paper:      #fffdf6;   /* warm book paper */
+  --paper-2:    #f3efe4;   /* raised surfaces: code, notes */
+  --ink:        #141414;
+  --ink-soft:   #565248;
+  --accent:     #e02020;   /* the punk red */
+  --rule:       #141414;
+
+  /* -- type -------------------------------------------------------------- */
+  --sans:  system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif: "Iowan Old Style", "Sitka Text", "Palatino Linotype", Palatino,
+           "Book Antiqua", Georgia, serif;
+  --mono:  ui-monospace, "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+
+  /* -- reading measure ---------------------------------------------------- */
+  --measure: 42rem;        /* article column width */
+  --margin-col: 19rem;     /* sidenote column width */
+  --gap: 2.5rem;           /* gap between article and sidenotes */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:    #161512;
+    --paper-2:  #211f1a;
+    --ink:      #e6e2d8;
+    --ink-soft: #a39d8f;
+    --accent:   #ff4b4b;
+    --rule:     #e6e2d8;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+::selection { background: var(--accent); color: #fff; }
+
+a { color: inherit; }
+
+/* ==========================================================================
+   Landing page — the punk poster
+   ========================================================================== */
+
+body.landing { font-size: 12px; line-height: 18px; text-align: justify; }
+
+.land-container { max-width: 600px; margin: 0 auto; min-height: 100vh; padding: 0 12px; }
+
+.land-row {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.land-left { display: flex; flex-direction: column; flex-shrink: 0; width: 260px; }
+
+.land-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 18px;
+}
+
+.grids { height: 32px; margin: 40px 0 18px; align-self: flex-start; }
+
+.poster-box {
+  color: #fff;
+  height: 300px;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 4px 18px;
+  margin-bottom: 12px;
+}
+
+.poster-logo { width: 80%; align-self: center; }
+
+.poster-nav { display: flex; justify-content: center; width: 100%; margin-top: 20px; }
+
+.poster-nav-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+  text-align: left;
+}
+
+.poster-box a { text-decoration: none; color: #fff; height: 28px; }
+.poster-box a:hover { color: var(--accent); }
+.soon { font-size: 8px; }
+
+.picture { height: 150px; width: 100%; background: var(--accent); }
+.picture img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.recent { margin-top: 22px; width: 100%; text-align: left; }
+.recent-head {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  border-top: 2px solid var(--rule);
+  padding-top: 8px;
+  margin: 0 0 6px;
+}
+.recent-item { display: block; text-decoration: none; padding: 2px 0; }
+.recent-item:hover { color: var(--accent); }
+.recent-date { font-family: var(--mono); font-size: 10px; color: var(--ink-soft); margin-right: 8px; }
+
+@media (max-width: 600px) {
+  .land-row { flex-direction: column; justify-content: flex-start; }
+  .land-left { flex-direction: row; width: 100%; margin-top: 12px; }
+  .poster-box { min-width: 60vw; margin: 0 12px 0 0; }
+  .picture { height: auto; }
+  .land-right { margin: 0; }
+}
+
+/* ==========================================================================
+   Reading pages — the book
+   ========================================================================== */
+
+body.reading {
+  font-family: var(--serif);
+  font-size: 1.185rem;
+  line-height: 1.62;
+}
+
+/* --- site header: punk bar over the book --------------------------------- */
+.site-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 18px 24px 12px;
+  border-bottom: 3px solid var(--rule);
+  font-family: var(--sans);
+}
+
+.wordmark {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -1.2px;
+  text-decoration: none;
+}
+.wordmark:hover { color: var(--accent); }
+
+.site-nav { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; }
+.site-nav a { text-decoration: none; color: var(--ink-soft); }
+.site-nav a:hover { color: var(--accent); }
+
+/* --- page shell ----------------------------------------------------------
+   The article column is `--measure` wide; on big screens an extra margin
+   column opens on the right for sidenotes. */
+.page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 1.5rem 20px 0;
+}
+
+@media (min-width: 1160px) {
+  .article-wrap {
+    max-width: calc(var(--measure) + var(--gap) + var(--margin-col));
+    padding-right: calc(var(--gap) + var(--margin-col) + 20px);
+  }
+}
+
+/* --- article header ------------------------------------------------------ */
+.art-head { margin: 2.2rem 0 3rem; }
+
+.art-date {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+
+.art-title {
+  font-size: 2.6rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 1.25rem;
+  margin: 0.7rem 0 0;
+}
+
+/* --- article body -------------------------------------------------------- */
+article p { margin: 0 0 1.15em; }
+
+article h2, article h3, article h4, article h5 {
+  font-family: var(--sans);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 2.2em 0 0.7em;
+}
+article h2 { font-size: 1.45rem; }
+article h3 { font-size: 1.18rem; }
+article h4 { font-size: 1.02rem; }
+
+/* red tick before section heads — small punk signature */
+article h2::before { content: "/ "; color: var(--accent); }
+
+article a {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+article a:hover { background: var(--accent); color: #fff; text-decoration: none; }
+
+.ul { text-decoration: underline; text-underline-offset: 3px; }
+
+article ul, article ol { padding-left: 1.6em; margin: 0 0 1.15em; }
+article li { margin-bottom: 0.45em; }
+article li p { margin-bottom: 0.45em; }
+
+article dl { margin: 0 0 1.15em; }
+article dt { font-family: var(--sans); font-weight: 700; font-size: 1rem; }
+article dd { margin: 0.15em 0 0.9em 0; padding-left: 1.2em; border-left: 2px solid var(--paper-2); }
+
+article blockquote {
+  margin: 1.6em 0;
+  padding: 0.2em 0 0.2em 1.4em;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--ink-soft);
+}
+article blockquote footer { font-style: normal; font-family: var(--sans); font-size: 0.85rem; margin-top: 0.5em; }
+article blockquote footer::before { content: "— "; }
+
+article hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+}
+article hr::after {
+  content: "* * *";
+  font-family: var(--sans);
+  letter-spacing: 0.6em;
+  color: var(--ink-soft);
+}
+
+/* --- code ----------------------------------------------------------------- */
+article code {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  background: var(--paper-2);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+article pre {
+  background: var(--paper-2);
+  border: 2px solid var(--rule);
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  line-height: 1.5;
+  position: relative;
+}
+article pre code { background: none; padding: 0; font-size: 0.8rem; }
+article pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0; right: 0;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--rule);
+  color: var(--paper);
+  padding: 2px 8px;
+}
+
+/* --- figures -------------------------------------------------------------- */
+article img { max-width: 100%; height: auto; }
+article figure { margin: 1.8em 0; }
+article figure img { display: block; width: 100%; border: 2px solid var(--rule); }
+article figcaption {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 0.5em;
+}
+article figcaption::before { content: "fig. "; color: var(--accent); font-weight: 700; }
+article figure.plain img { border: none; }
+
+/* --- tables ---------------------------------------------------------------- */
+article table {
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95rem;
+  width: 100%;
+}
+article th {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  text-align: left;
+  border-bottom: 2px solid var(--rule);
+  padding: 0.4em 0.8em 0.4em 0;
+}
+article td { border-bottom: 1px solid var(--paper-2); padding: 0.4em 0.8em 0.4em 0; }
+.table-caption { font-family: var(--sans); font-size: 0.82rem; color: var(--ink-soft); margin-top: -1em; }
+
+/* --- math ------------------------------------------------------------------ */
+math { font-size: 1.05em; }
+math[display="block"] { margin: 1.4em 0; overflow-x: auto; overflow-y: hidden; }
+
+/* --- sidenotes & margin notes ----------------------------------------------
+   Numbered [fn:1] sidenotes double as citations; [fn::text] gives an
+   unnumbered margin note. On wide screens they sit in the right margin;
+   below 1160px they collapse and toggle open inline (CSS only, no JS). */
+.sn-check { display: none; }
+
+.sn-toggle { cursor: pointer; }
+.sn-ref, .sn-num {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.72em;
+  color: var(--accent);
+}
+.mn-mark { color: var(--accent); font-family: var(--sans); font-size: 0.9em; }
+
+.sidenote {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 1160px) {
+  .sidenote {
+    float: right;
+    clear: right;
+    width: var(--margin-col);
+    margin-right: calc(-1 * (var(--margin-col) + var(--gap)));
+    margin-bottom: 0.8em;
+    text-align: left;
+  }
+  .sn-toggle { cursor: default; }
+}
+
+@media (max-width: 1159.98px) {
+  .sidenote { display: none; }
+  .sn-check:checked + .sidenote {
+    display: block;
+    margin: 0.8em 0;
+    padding: 0.7em 1em;
+    border: 2px solid var(--rule);
+    background: var(--paper-2);
+  }
+  .sn-toggle:hover .sn-ref, .sn-toggle:hover.mn-mark { text-decoration: underline; }
+}
+
+/* --- special blocks: #+begin_note / #+begin_aside / #+begin_warning -------- */
+.block-note, .block-aside, .block-warning {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  border: 2px solid var(--rule);
+  padding: 0.9rem 1.2rem;
+  margin: 1.6em 0;
+  background: var(--paper-2);
+}
+.block-warning { border-color: var(--accent); }
+.block-note p:last-child, .block-aside p:last-child, .block-warning p:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Words listing
+   ========================================================================== */
+
+.list-title {
+  font-family: var(--sans);
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin: 2.5rem 0 0.4rem;
+}
+.tick { color: var(--accent); }
+
+.list-blurb { color: var(--ink-soft); margin: 0 0 2.5rem; font-style: italic; }
+
+h2.year {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 4px;
+  margin: 2.2rem 0 0.8rem;
+}
+
+.word-list { list-style: none; margin: 0; padding: 0; }
+.word-list li { margin: 0; }
+.word-list a {
+  display: block;
+  text-decoration: none;
+  padding: 0.55rem 0.4rem;
+  margin: 0 -0.4rem;
+}
+.word-list a:hover { background: var(--rule); color: var(--paper); }
+.word-list a:hover .wl-date, .word-list a:hover .wl-sub { color: var(--paper); }
+.word-list a:hover .wl-title { color: var(--accent); }
+.wl-date { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-soft); display: inline-block; width: 7.5rem; }
+.wl-title { font-weight: 700; }
+.wl-sub { display: block; font-size: 0.95rem; font-style: italic; color: var(--ink-soft); padding-left: 7.5rem; }
+
+@media (max-width: 600px) {
+  .wl-date { display: block; width: auto; }
+  .wl-sub { padding-left: 0; }
+}
+
+/* ==========================================================================
+   Plain pages (/now /reads /uses /bookmarks) + footer
+   ========================================================================== */
+
+.plain-page .art-title { font-size: 2.1rem; margin: 2.2rem 0 1.4rem; }
+
+.site-foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-soft);
+  border-top: 3px solid var(--rule);
+  margin-top: 4.5rem;
+  padding: 12px 0 40px;
+  clear: both;
+}
+.site-foot a { color: inherit; text-decoration: none; margin-right: 10px; }
+.site-foot a:hover { color: var(--accent); }
