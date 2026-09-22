@@ -34,7 +34,9 @@ Windows, `-lpthread` on Linux).
 ```sh
 ./palsite dev            # build + serve + rebuild on save  (writing mode)
 ./palsite build          # render content/ -> dist/
-./palsite serve -p 8080  # production: serve dist/ from RAM
+./palsite publish        # build, and make a running `serve` reload it
+./palsite serve -p 8080  # production: serve dist/ from RAM (127.0.0.1 only;
+                         #   add --lan to listen on all interfaces)
 ./palsite new "Title"    # scaffold content/words/title.org
 ```
 
@@ -42,18 +44,43 @@ Windows, `-lpthread` on Linux).
 Emacs, refresh the browser. The server pre-loads the whole site into memory,
 answers with ETags/304s, and needs well under a millisecond per request.
 
-**Deployed on Vercel, building directly from `master`** — no second branch,
-no manual publish step. `vercel.json` sets the build command
-(`g++ ... && ./palsite build`) and output directory (`dist`); push to
-`master` and Vercel compiles the tool and rebuilds the site itself. In the
-Vercel dashboard the project just needs Framework Preset = "Other".
+## Hosting
 
-`palsite serve` (the in-memory HTTP server in `src/server.cpp`) isn't used
-in production — Vercel's static hosting already does everything it would
-do, plus a CDN. It's there for local parity with `palsite dev`, or for
-self-hosting on a box you control: copy `palsite` +
-`content/ templates/ static/ site.conf`, run
-`palsite build && palsite serve -p 8080` behind a TLS proxy.
+**Self-hosted on this machine, reached through Tailscale Funnel.** Funnel
+terminates HTTPS on a `*.ts.net` name and forwards to `palsite serve` on
+`127.0.0.1:8080`; nothing listens on the LAN, and no router ports are open.
+
+```
+internet -> https://<machine>.<tailnet>.ts.net -> tailscaled -> 127.0.0.1:8080 (palsite serve)
+```
+
+`scripts/selfhost.ps1` keeps the server running:
+
+```powershell
+.\scripts\selfhost.ps1 install     # static build into .selfhost\, start at every logon
+.\scripts\selfhost.ps1 status      # task, listener, funnel, log tail
+.\scripts\selfhost.ps1 restart     # after changing src/: recompile + restart
+.\scripts\selfhost.ps1 uninstall
+```
+
+It registers a logon task (no admin needed) that runs a hidden supervisor,
+which restarts the server within 5 s if it ever dies. The server binary is
+compiled with `-static` because the default MinGW build loads
+`libstdc++-6.dll` from `PATH`, and outside Git Bash that can be a
+mismatched copy (exit `0xC0000139`).
+
+**Publishing is manual:** edit, preview with `palsite dev`, then run
+`./palsite publish`. That rebuilds `dist/` and rewrites `.published`; the live
+server notices within a second and swaps the new site in atomically. A failed
+build leaves the stamp alone, so the old site stays up.
+
+Funnel setup (once): install Tailscale, `tailscale up`, enable HTTPS and
+Funnel for the tailnet in the admin console, then
+`tailscale funnel --bg 8080`. The funnel config persists across reboots. Set
+`url` in `site.conf` to the `https://….ts.net` address so canonical links
+and the feed point to the right place.
+
+The site is only up while this machine is on and not asleep.
 
 ## Writing
 
