@@ -2,6 +2,13 @@
 #pragma once
 #include <string>
 
-// Serve `dir` on `port`. If watch_root is non-empty, poll it for changes,
-// rebuild and hot-reload the in-memory cache (dev mode). Blocks forever.
-int run_serve(const std::string &dir, int port, const std::string &watch_root);
+struct ServeOpts {
+    std::string dir;         // directory to serve (dist/)
+    int port = 8080;
+    bool lan = false;        // bind all interfaces instead of loopback only
+    std::string watch_root;  // dev: poll sources, rebuild + hot-reload on change
+    std::string stamp;       // serve: hot-reload dir whenever this file changes
+};
+
+// Serve opts.dir on opts.port. Blocks forever.
+int run_serve(const ServeOpts &opts);

@@ -8,6 +8,7 @@
 #include "common.hpp"
 
 #include <atomic>
+#include <chrono>
 #include <cstdio>
 #include <cstring>
 #include <memory>
@@ -47,6 +48,14 @@ using Cache = std::unordered_map<std::string, std::shared_ptr<const Entry>>;
 
 std::shared_mutex g_mu;
 std::shared_ptr<const Cache> g_cache;
+
+// Each connection gets a thread; past this many, new ones are dropped so a
+// flood of idle sockets can't exhaust the machine.
+constexpr int kMaxConns = 256;
+std::atomic<int> g_conns{0};
+
+// A request head must arrive within this long, however slowly it trickles in.
+constexpr auto kHeadDeadline = std::chrono::seconds(10);
 
 const char *mime_for(const std::string &path) {
     static const std::unordered_map<std::string, const char *> m = {
@@ -144,6 +153,9 @@ void send_all(sock_t c, const char *data, size_t len) {
 void respond(sock_t c, int code, const char *status, const Entry *ent,
              bool head, bool keep_alive, bool not_modified) {
     std::string h = "HTTP/1.1 " + std::to_string(code) + " " + status + "\r\n";
+    h += "X-Content-Type-Options: nosniff\r\n"
+         "X-Frame-Options: DENY\r\n"
+         "Referrer-Policy: strict-origin-when-cross-origin\r\n";
     if (ent) {
         h += "Content-Type: " + ent->mime + "\r\n";
         h += "ETag: " + ent->etag + "\r\n";
@@ -181,8 +193,12 @@ void handle_client(sock_t c) {
     for (int served = 0; served < 200; served++) {
         // read one request head
         size_t head_end;
+        auto deadline = std::chrono::steady_clock::now() + kHeadDeadline;
         while ((head_end = buf.find("\r\n\r\n")) == std::string::npos) {
-            if (buf.size() > 32768) { CLOSESOCK(c); return; }
+            if (buf.size() > 32768 || std::chrono::steady_clock::now() > deadline) {
+                CLOSESOCK(c);
+                return;
+            }
             int n = (int)recv(c, tmp, sizeof tmp, 0);
             if (n <= 0) { CLOSESOCK(c); return; }
             buf.append(tmp, (size_t)n);
@@ -289,9 +305,33 @@ fs::file_time_type scan_mtime(const fs::path &root) {
     return latest;
 }
 
+
+// Stamp contents, or "" if it doesn't exist (yet, or mid-publish).
+std::string read_stamp(const std::string &path) {
+    std::error_code ec;
+    if (!fs::exists(path, ec)) return "";
+    try { return read_file(path); } catch (...) { return ""; }
+}
+
+void swap_cache(const std::string &dir, const char *what) {
+    std::shared_ptr<const Cache> fresh;
+    try {
+        fresh = load_cache(dir);
+    } catch (const std::exception &e) {
+        std::fprintf(stderr, "%s: reload failed, keeping old site (%s)\n", what, e.what());
+        return;
+    }
+    {
+        std::unique_lock lk(g_mu);
+        g_cache = fresh;
+    }
+    std::printf("%s: reloaded (%zu files)\n", what, fresh->size());
+    std::fflush(stdout);
+}
+
 } // namespace
 
-int run_serve(const std::string &dir, int port, const std::string &watch_root) {
+int run_serve(const ServeOpts &o) {
 #ifdef _WIN32
     WSADATA wsa;
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
@@ -304,68 +344,99 @@ int run_serve(const std::string &dir, int port, const std::string &watch_root) {
 
     {
         std::unique_lock lk(g_mu);
-        g_cache = load_cache(dir);
+        g_cache = load_cache(o.dir);
     }
-    std::printf("serve: %zu files cached in RAM from %s\n", g_cache->size(), dir.c_str());
+    std::printf("serve: %zu files cached in RAM from %s\n", g_cache->size(), o.dir.c_str());
 
-    if (!watch_root.empty()) {
-        std::thread([dir, watch_root] {
-            std::printf("dev: watching %s for changes\n", watch_root.c_str());
+    if (!o.watch_root.empty()) {
+        std::thread([o] {
+            std::printf("dev: watching %s for changes\n", o.watch_root.c_str());
             std::fflush(stdout);
-            auto last = scan_mtime(watch_root);
+            auto last = scan_mtime(o.watch_root);
             for (;;) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(400));
-                auto now = scan_mtime(watch_root);
+                auto now = scan_mtime(o.watch_root);
                 if (now != last) {
                     last = now;
-                    run_build(watch_root, true);
-                    auto fresh = load_cache(dir);
-                    {
-                        std::unique_lock lk(g_mu);
-                        g_cache = fresh;
-                    }
-                    std::printf("dev: rebuilt (%zu files)\n", fresh->size());
-                    std::fflush(stdout);
+                    run_build(o.watch_root, true);
+                    swap_cache(o.dir, "dev");
                 }
             }
         }).detach();
     }
 
-    // dual-stack socket: one listener for both ::1 and 127.0.0.1
-    int one = 1;
-    sock_t srv = socket(AF_INET6, SOCK_STREAM, 0);
-    bool ok = false;
-    if (srv != INVALID_SOCKET) {
-        int zero = 0;
-        setsockopt(srv, IPPROTO_IPV6, IPV6_V6ONLY, (const char *)&zero, sizeof zero);
-        setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, (const char *)&one, sizeof one);
-        sockaddr_in6 a6{};
-        a6.sin6_family = AF_INET6;
-        a6.sin6_addr = in6addr_any;
-        a6.sin6_port = htons((unsigned short)port);
-        ok = bind(srv, (sockaddr *)&a6, sizeof a6) == 0;
-        if (!ok) CLOSESOCK(srv);
+    // `palsite publish` rewrites the stamp only after a successful build, so a
+    // changed, non-empty stamp means dist/ is complete and safe to load.
+    if (!o.stamp.empty()) {
+        std::thread([o] {
+            std::printf("serve: reloading whenever %s changes\n", o.stamp.c_str());
+            std::fflush(stdout);
+            std::string last = read_stamp(o.stamp);
+            for (;;) {
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                std::string now = read_stamp(o.stamp);
+                if (!now.empty() && now != last) {
+                    last = now;
+                    swap_cache(o.dir, "publish");
+                }
+            }
+        }).detach();
     }
-    if (!ok) { // fall back to plain IPv4
+
+    // Loopback-only by default: in production a tunnel (Tailscale Funnel)
+    // is the only thing that should reach this port. --lan opens it up.
+    int one = 1;
+    sock_t srv = INVALID_SOCKET;
+    bool ok = false;
+    if (o.lan) {
+        // dual-stack socket: one listener for both IPv6 and IPv4
+        srv = socket(AF_INET6, SOCK_STREAM, 0);
+        if (srv != INVALID_SOCKET) {
+            int zero = 0;
+            setsockopt(srv, IPPROTO_IPV6, IPV6_V6ONLY, (const char *)&zero, sizeof zero);
+            setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, (const char *)&one, sizeof one);
+            sockaddr_in6 a6{};
+            a6.sin6_family = AF_INET6;
+            a6.sin6_addr = in6addr_any;
+            a6.sin6_port = htons((unsigned short)o.port);
+            ok = bind(srv, (sockaddr *)&a6, sizeof a6) == 0;
+            if (!ok) CLOSESOCK(srv);
+        }
+    }
+    if (!ok) {
         srv = socket(AF_INET, SOCK_STREAM, 0);
         if (srv == INVALID_SOCKET) { std::fprintf(stderr, "socket() failed\n"); return 1; }
+#ifdef _WIN32
+        // Windows' SO_REUSEADDR lets a second process steal the port; the
+        // exclusive flag is the equivalent of the POSIX default.
+        setsockopt(srv, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, (const char *)&one, sizeof one);
+#else
         setsockopt(srv, SOL_SOCKET, SO_REUSEADDR, (const char *)&one, sizeof one);
+#endif
         sockaddr_in addr{};
         addr.sin_family = AF_INET;
-        addr.sin_addr.s_addr = htonl(INADDR_ANY);
-        addr.sin_port = htons((unsigned short)port);
+        addr.sin_addr.s_addr = htonl(o.lan ? INADDR_ANY : INADDR_LOOPBACK);
+        addr.sin_port = htons((unsigned short)o.port);
         if (bind(srv, (sockaddr *)&addr, sizeof addr) != 0) {
-            std::fprintf(stderr, "bind() failed on port %d (already in use?)\n", port);
+            std::fprintf(stderr, "bind() failed on port %d (already in use?)\n", o.port);
             return 1;
         }
     }
     if (listen(srv, 64) != 0) { std::fprintf(stderr, "listen() failed\n"); return 1; }
-    std::printf("serve: http://localhost:%d\n", port);
+    std::printf("serve: http://%s:%d\n", o.lan ? "0.0.0.0" : "127.0.0.1", o.port);
     std::fflush(stdout);
 
     for (;;) {
         sock_t client = accept(srv, nullptr, nullptr);
         if (client == INVALID_SOCKET) continue;
-        std::thread(handle_client, client).detach();
+        if (g_conns.fetch_add(1) >= kMaxConns) {
+            g_conns.fetch_sub(1);
+            CLOSESOCK(client);
+            continue;
+        }
+        std::thread([client] {
+            handle_client(client);
+            g_conns.fetch_sub(1);
+        }).detach();
     }
 }
