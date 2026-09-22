@@ -1,5 +1,5 @@
 # Build the site tool. Requires any C++17 compiler; nothing else.
-#   make            -> ./site (or site.exe)
+#   make            -> ./palsite (or palsite.exe)
 #   make release    -> static binary for deployment
 CXX      ?= g++
 CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra
