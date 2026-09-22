@@ -7,3 +7,7 @@ dist/
 palsite
 palsite.exe
 *.o
+
+# self-hosting runtime (scripts/selfhost.ps1)
+.selfhost/
+.published
