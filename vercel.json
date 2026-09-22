@@ -1,5 +1,0 @@
-{
-  "buildCommand": "g++ -std=c++17 -O2 -o palsite src/main.cpp src/org.cpp src/mathml.cpp src/build.cpp src/server.cpp -lpthread && ./palsite build",
-  "outputDirectory": "dist",
-  "trailingSlash": true
-}
