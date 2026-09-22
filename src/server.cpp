@@ -177,6 +177,26 @@ void redirect(sock_t c, const std::string &to, bool keep_alive) {
     send_all(c, h.data(), h.size());
 }
 
+// True if the request head declares a body: any Transfer-Encoding, or a
+// Content-Length other than 0. Header names are compared after trimming, so
+// padding tricks like "Content-Length :" count as declaring one too.
+bool has_body(const std::string &head) {
+    size_t pos = head.find("\r\n"); // skip the request line
+    while (pos != std::string::npos) {
+        pos += 2;
+        size_t end = head.find("\r\n", pos);
+        std::string line = head.substr(pos, end == std::string::npos ? std::string::npos : end - pos);
+        pos = end;
+        size_t colon = line.find(':');
+        if (colon == std::string::npos) continue;
+        std::string name = lower(trim(line.substr(0, colon)));
+        std::string value = trim(line.substr(colon + 1));
+        if (name == "transfer-encoding") return true;
+        if (name == "content-length" && value != "0") return true;
+    }
+    return false;
+}
+
 void handle_client(sock_t c) {
 #ifdef _WIN32
     DWORD tv = 8000;
@@ -226,6 +246,18 @@ void handle_client(sock_t c) {
         if (ip != std::string::npos) {
             size_t end = head.find("\r\n", ip);
             inm = trim(head.substr(ip + 14, end - ip - 14));
+        }
+
+        // Nothing here takes a request body, and bodies are never read: an
+        // unread body would sit in `buf` and be parsed as the next request,
+        // letting one client smuggle a response onto a proxy connection that
+        // another visitor's request reuses. Refuse any request that has one.
+        if (has_body(head)) {
+            std::string h = "HTTP/1.1 400 Bad Request\r\n"
+                            "Content-Length: 0\r\nConnection: close\r\n\r\n";
+            send_all(c, h.data(), h.size());
+            CLOSESOCK(c);
+            return;
         }
 
         bool is_head = method == "HEAD";
